@@ -5,12 +5,12 @@ ini_set('display_errors', 'On');
 
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['uname'];
-    $sql = "SELECT * FROM users WHERE email='" . $_SESSION['email'] . "'";
+    $c_f_name = $_POST['f_name'];
+    $sql = "SELECT * FROM clients WHERE email='" . $_SESSION['email'] . "'";
     $result = mysqli_query($conn, $sql);
     if ($result->num_rows > 0) {
         $date = date("Y-m-d");
-        $sql = "UPDATE users set name='$username' where email='" . $_SESSION['email'] . "'";
+        $sql = "UPDATE clients set c_f_name='$c_f_name' where email='" . $_SESSION['email'] . "'";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             echo "<script>alert('Wow! User Profile Updation Completed.')</script>";
@@ -24,7 +24,7 @@ if (!isset($_SESSION['email'])) {
     header("Location: login.php");
 }
 
-$sql = "SELECT * FROM users WHERE email='" . $_SESSION['email'] . "'";
+$sql = "SELECT * FROM clients WHERE c_e_mail='" . $_SESSION['email'] . "'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 ?>
@@ -65,7 +65,7 @@ $row = mysqli_fetch_assoc($result);
                 <div class="col-12">
                     <div class="form-group">
                         <label for="uname">Name <sup class="red">*</sup></label>
-                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Name" value="<?php echo $row['name']; ?>" required>
+                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Name" value="<?php echo $row['c_f_name']; ?>" required>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@ $row = mysqli_fetch_assoc($result);
                     <div class="form-group">
                         <div class="controls">
                             <label for="email">E-mail <sup class="red">*</sup></label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" value="<?php echo $row['email']; ?>" readonly required>
+                            <input type="email" class="form-control" id="email" placeholder="Email" value="<?php echo $row['c_e_mail']; ?>" readonly required>
                         </div>
                     </div>
                 </div>

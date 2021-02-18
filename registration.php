@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 	}
 }
 if (isset($_SESSION['email'])) {
-	header("Location: index.php");
+	header("Location: user.php");
 }
 
 ?>

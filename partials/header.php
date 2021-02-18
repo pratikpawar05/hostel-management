@@ -94,7 +94,7 @@
 										$sql = "SELECT c_f_name,c_l_name FROM clients WHERE c_e_mail='" . $_SESSION['email'] . "'";
 										$result = mysqli_query($conn, $sql);
 										$row = mysqli_fetch_assoc($result);
-										echo "<li><a href='profile.php'>Welcome, " . $row['c_f_name'] . " " . $row['c_l_name'] . "</a></li>";
+										echo "<li><a href='user.php'>Welcome, " . $row['c_f_name'] . " " . $row['c_l_name'] . "</a></li>";
 										echo "<li><form action='' method='POST'>";
 										echo "<button type='submit' class='btn btn-danger'>Logout</button>";
 										echo "</form></li>";
