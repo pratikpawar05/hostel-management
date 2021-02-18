@@ -37,7 +37,7 @@ if (isset($_SESSION['email'])) {
 </head>
 
 <body>
-	<div class="container">
+	<div class="containers">
 		<form action="" method="POST" class="login-email">
 			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Login</p>
 			<div class="input-group">

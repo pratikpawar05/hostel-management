@@ -8,123 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="description" content="Sona Template">
-	<meta name="keywords" content="Sona, unica, creative, html">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Moris Hostel</title>
-
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
-
-	<!-- Css Styles -->
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-	<link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-	<link rel="stylesheet" href="css/flaticon.css" type="text/css">
-	<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-	<link rel="stylesheet" href="css/nice-select.css" type="text/css">
-	<link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-	<link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-	<link rel="stylesheet" href="css/style.css" type="text/css">
-
-
-</head>
-
-<body>
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
-
-
-
-	<!-- Header Section Begin -->
-	<header class="header-section">
-		<div class="top-nav">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6">
-						<ul class="tn-left">
-							<li><i class="fa fa-phone"></i> (230) 57928496 </li>
-							<li><i class="fa fa-envelope"></i> info.morishostel@gmail.com</li>
-						</ul>
-					</div>
-					<div class="col-lg-6">
-						<div class="tn-right">
-							<div class="top-social">
-								<a href="#"><i class="fa fa-facebook"></i></a>
-								<a href="#"><i class="fa fa-twitter"></i></a>
-								<a href="#"><i class="fa fa-tripadvisor"></i></a>
-								<a href="#"><i class="fa fa-instagram"></i></a>
-							</div>
-							<a href="#" class="bk-btn">Booking Now</a>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="menu-item">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-2">
-						<div class="logo">
-							<a href="./index.php">
-								<img src="img/logo.png" alt="">
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-10">
-						<div class="nav-menu">
-							<nav class="mainmenu">
-								<ul>
-
-									<li><a href="./rooms.html">Rooms</a></li>
-
-									<li> <a href="./pages.html">Pages</a>
-										<ul class="dropdown">
-											<li><a href="./room-details.html">Room Details</a></li>
-											<li><a href="./blog-details.html">Blog Details</a></li>
-											<li><a href="#">Family Room</a></li>
-											<li><a href="#">Premium Room</a></li>
-										</ul>
-									</li>
-									<li><a href="./about-us.html">About Us</a></li>
-
-									<li><a href="./contact.html">Contact</a></li>
-									<?php
-									if (isset($_SESSION['email'])) {
-										$sql = "SELECT name FROM users WHERE email='" . $_SESSION['email'] . "'";
-										$result = mysqli_query($conn, $sql);
-										$row = mysqli_fetch_assoc($result);
-										echo "<li><a href='profile.php'>Welcome, " . $row['name'] . "</a></li>";
-										echo "<li><form action='' method='POST'>";
-										echo "<button type='submit' class='btn btn-danger'>Logout</button>";
-										echo "</form></li>";
-									} else {
-										echo "<li><a href='registration.php'>Register Now</a></li>";
-										echo "<li><a href='login.php'>Sign in</a></li>";
-									} ?>
-								</ul>
-							</nav>
-							<div class="nav-right search-switch">
-								<i class="icon_search"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- Header End -->
+<?php include_once './partials/header.php' ?>
 
 	<!-- Hero Section Begin -->
 	<section class="hero-section">
@@ -462,86 +346,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</section>
 
 
-	<!-- Footer Section Begin -->
-	<footer class="footer-section">
-		<div class="container">
-			<div class="footer-text">
-				<div class="row">
-					<div class="col-lg-4">
-						<div class="ft-about">
-							<div class="logo">
-								<a href="#">
-									<img src="img/footer-logo.png" alt="">
-								</a>
-							</div>
-							<p>We inspire and reach millions of travelers<br /> across 90 local websites</p>
-							<div class="fa-social">
-								<a href="#"><i class="fa fa-facebook"></i></a>
-								<a href="#"><i class="fa fa-twitter"></i></a>
-								<a href="#"><i class="fa fa-tripadvisor"></i></a>
-								<a href="#"><i class="fa fa-instagram"></i></a>
-								<a href="#"><i class="fa fa-youtube-play"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 offset-lg-1">
-						<div class="ft-contact">
-							<h6>Contact Us</h6>
-							<ul>
-								<li>(12) 345 67890</li>
-								<li>info.colorlib@gmail.com</li>
-								<li>856 Cordia Extension Apt. 356, Lake, United State</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-3 offset-lg-1">
-						<div class="ft-newslatter">
-							<h6>New latest</h6>
-							<p>Get the latest updates and offers.</p>
-							<form action="#" class="fn-form">
-								<input type="text" placeholder="Email">
-								<button type="submit"><i class="fa fa-send"></i></button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="copyright-option">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-7">
-						<ul>
-							<li><a href="#">Contact</a></li>
-							<li><a href="#">Terms of use</a></li>
-							<li><a href="#">Privacy</a></li>
-							<li><a href="#">Environmental Policy</a></li>
-						</ul>
-					</div>
-					<div class="col-lg-5">
-						<div class="co-text">
-							<p>
-								Copyright &copy;<script>
-									document.write(new Date().getFullYear());
-								</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- Footer Section End -->
+<?php include_once('partials/footer.php') ?>
 
 	<!-- Search model Begin -->
-	<div class="search-model">
+	<!-- <div class="search-model">
 		<div class="h-100 d-flex align-items-center justify-content-center">
 			<div class="search-close-switch"><i class="icon_close"></i></div>
 			<form class="search-model-form">
 				<input type="text" id="search-input" placeholder="Search here.....">
 			</form>
 		</div>
-	</div>
+	</div> -->
 	<!-- Search model end -->
 
 	<!-- Js Plugins -->
