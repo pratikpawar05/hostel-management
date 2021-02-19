@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<a href="#" class="primary-btn">Discover Now</a>
 					</div>
 				</div>
-				<div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
+				<!-- <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
 					<div class="booking-form">
 						<h3>Booking Your Hotel</h3>
 						<form action="#">
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<button type="submit">Check Availability</button>
 						</form>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="hero-slider owl-carousel">
@@ -63,6 +63,115 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 	</section>
 	<!-- Hero Section End -->
+	<section class="section bg-light"  id="next">
+      <div class="container " id="check">
+        <div class="row">
+          <div class="col-md-7 mx-auto text-center mb-5">
+            <h2 class="headingv">Check Availabilty</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+          <div class="block-32">
+
+            <form action="check_availibility.php" method="post">
+              <center><h2>Daily Booking</h2></center>
+              <div class="row">
+                <div class="col-md-6 mb-3 mb-lg-0 col-lg-6">
+                  <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
+                    <input type="date" class="form-control" name="checkin">
+                </div>
+                <div class="col-md-6 mb-3 mb-lg-0 col-lg-6">
+                  <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
+                    <input type="date" name="checkout" class="form-control">
+                </div>
+</div>
+<div class="row">
+                <div class="col-md-6 mb-3 mb-md-0 col-lg-6">
+                      <label for="adults" class="font-weight-bold text-black">TYPES</label>
+                      <div class="field-icon-wrap">
+                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                        <select name="type" id="Types" class="form-control">
+                          <option value="T">Select Type</option>
+                          <option value="single bed">Single Bed</option>
+                          <option value="double bed">Double Bed</option>
+                          <option value="Ac with single bed">AC With Single Bed</option>
+						  <option value="Ac with double bed">AC With Double Bed</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3 mb-md-0 col-lg-6">
+                      <label for="children" class="font-weight-bold text-black">No Of ROOMS</label>
+                      <!-- <div class="field-icon-wrap">
+                        <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+                        <input type="number" name="no_of_rooms" id="rooms" class="form-control">
+                          
+                    </div>
+                  </div>
+                  <br>
+                  <center><button class="btn btn-primary btn-block text-white">Check Availabilty</button></center>
+              <center>
+              <span>Note: ONE BED IS ONLY FOR ONE PERSON</span>
+              </center>
+
+            </form>
+          </div>
+
+
+
+</div>
+<div class="col-md-6">
+          <div class="block-32">
+
+            <form action="check_monthavailibility.php" method="post">
+              <center><h2>Monthly Booking</h2></center>
+              <div class="row">
+                <div class="col-md-6 mb-3 mb-lg-0 col-lg-6">
+                  <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
+                    <input type="date" class="form-control" name="checkin">
+                </div>
+                <div class="col-md-6 mb-3 mb-lg-0 col-lg-6">
+                  <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
+                    <input type="date" name="checkout" class="form-control">
+                </div>
+</div>
+<div class="row">
+                <div class="col-md-6 mb-3 mb-md-0 col-lg-6">
+                      <label for="adults" class="font-weight-bold text-black">TYPES</label>
+                      <div class="field-icon-wrap">
+                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                        <select name="type" id="Types" class="form-control">
+						<option value="T">Select Type</option>
+                          <option value="single bed">Single Bed</option>
+                          <option value="double bed">Double Bed</option>
+                          <option value="Ac with single bed">AC With Single Bed</option>
+						  <option value="Ac with double bed">AC With Double Bed</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3 mb-md-0 col-lg-6">
+                      <label for="children" class="font-weight-bold text-black">No Of ROOMS</label>
+                      <!-- <div class="field-icon-wrap">
+                        <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+                        <input type="number" name="no_of_rooms" id="rooms" class="form-control">
+                          
+                    </div>
+                  </div>
+                  <br>
+                  <center><button class="btn btn-primary btn-block text-white">Check Availabilty</button></center>
+              <center>
+              <span>Note: ONE BED IS ONLY FOR ONE PERSON</span>
+              </center>
+
+            </form>
+          </div>
+
+
+
+</div>
+        </div>
+      </div>
+    </section>
 
 	<!-- About Us Section Begin -->
 	<section class="aboutus-section spad">
