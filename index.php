@@ -25,30 +25,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
 					<div class="booking-form">
 						<h3>Booking Your Hotel</h3>
-						<form action="#">
+						<form action="check_availibility.php" method="POST">
 							<div class="check-date">
-								<label for="date-in">Check In:</label>
-								<input type="text" class="date-input" id="date-in">
-								<i class="icon_calendar"></i>
+								<label for="checkin_date">Check In:</label>
+								<input type="date" class="" id="checkin_date" name="checkin">
 							</div>
 							<div class="check-date">
-								<label for="date-out">Check Out:</label>
-								<input type="text" class="date-input" id="date-out">
-								<i class="icon_calendar"></i>
+								<label for="checkout_date">Check Out:</label>
+								<input type="date" class="" id="checkout_date" name="checkout">
 							</div>
 							<div class="select-option">
-								<label for="guest">Guests:</label>
-								<select id="guest">
-									<option value="">2 Adults</option>
-									<option value="">3 Adults</option>
+								<label for="types">TYPES:</label>
+								<select id="types" name="type">
+								<?php
+								$type_sql="SELECT `r_type_name`,`room_type_id` FROM `room_type`";
+								$type_result= mysqli_query($conn, $type_sql);
+								while($row=mysqli_fetch_array($type_result))
+								{
+									?>
+								<option value="<?php echo $row['room_type_id'];?>"><?php echo $row['r_type_name'];?></option>
+									<?php
+								}
+								?>
 								</select>
 							</div>
 							<div class="select-option">
 								<label for="room">Room:</label>
-								<select id="room">
-									<option value="">1 Room</option>
-									<option value="">2 Room</option>
-								</select>
+								<input type="number" name="no_of_rooms" id="rooms" class="form-control">
 							</div>
 							<button type="submit">Check Availability</button>
 						</form>

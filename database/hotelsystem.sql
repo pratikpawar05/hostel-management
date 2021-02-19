@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2021 at 09:29 AM
+-- Generation Time: Feb 19, 2021 at 07:31 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -24,11 +24,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking`
+-- Table structure for table `bookings`
 --
 
-CREATE TABLE `booking` (
+CREATE TABLE `bookings` (
   `id` int(11) NOT NULL,
+  `c_id` int(11) NOT NULL,
   `checkin_date` datetime NOT NULL,
   `checkout_date` datetime NOT NULL,
   `booking_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -37,6 +38,13 @@ CREATE TABLE `booking` (
   `payment_status` varchar(255) NOT NULL,
   `payment_amount` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`id`, `c_id`, `checkin_date`, `checkout_date`, `booking_date`, `room_no`, `booking_id`, `payment_status`, `payment_amount`) VALUES
+(82, 1, '2021-02-20 19:54:51', '2021-02-22 19:54:51', '2021-02-19 14:25:48', 101, '11100011', 'paid', 1000);
 
 -- --------------------------------------------------------
 
@@ -71,15 +79,16 @@ INSERT INTO `clients` (`c_id`, `c_type`, `c_f_name`, `c_l_name`, `c_address`, `c
 (5, 'International', 'Griffith Moss', 'Alexander Compton', 'Ut quia temporibus o ', 'Rem dicta labore rem', 'Officia consequatur', NULL, 'qiqapi@mailinator.com', '1994-09-21', 'Male', 'Et labore sit sint ', 'Doloremque obcaecati', '5f4dcc3b5aa765d61d8327deb882cf99', '2021-02-17 18:30:00'),
 (6, 'Student', 'GODSE', 'HARISHCHANDRA', 'A/P:VIDANI, ', '415523', 'India', NULL, 'VINAYAKGODSE97@GMAIL.COM', '2021-01-27', 'Male', '9404846862', 'Satara', '202cb962ac59075b964b07152d234b70', '2021-02-17 18:30:00'),
 (7, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse973@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-17 18:30:00'),
-(8, 'International', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse97@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', 'c20ad4d76fe97759aa27a0c99bff6710', '2021-02-18 18:30:00');
+(8, 'International', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse97@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', 'c20ad4d76fe97759aa27a0c99bff6710', '2021-02-18 18:30:00'),
+(9, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse9@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-18 18:30:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `room`
+-- Table structure for table `rooms`
 --
 
-CREATE TABLE `room` (
+CREATE TABLE `rooms` (
   `room_id` int(11) NOT NULL,
   `room_no` bigint(10) NOT NULL,
   `room_level` varchar(255) NOT NULL,
@@ -88,10 +97,10 @@ CREATE TABLE `room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `room`
+-- Dumping data for table `rooms`
 --
 
-INSERT INTO `room` (`room_id`, `room_no`, `room_level`, `room_status`, `room_type_id`) VALUES
+INSERT INTO `rooms` (`room_id`, `room_no`, `room_level`, `room_status`, `room_type_id`) VALUES
 (1, 101, 'ground floor', 'Available', 1),
 (2, 102, 'ground floor', 'Available', 1),
 (3, 103, 'ground floor', 'Available', 1),
@@ -165,9 +174,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 
 --
--- Indexes for table `booking`
+-- Indexes for table `bookings`
 --
-ALTER TABLE `booking`
+ALTER TABLE `bookings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -178,9 +187,9 @@ ALTER TABLE `clients`
   ADD UNIQUE KEY `users_email_unique` (`c_e_mail`);
 
 --
--- Indexes for table `room`
+-- Indexes for table `rooms`
 --
-ALTER TABLE `room`
+ALTER TABLE `rooms`
   ADD PRIMARY KEY (`room_id`);
 
 --
@@ -201,21 +210,21 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `booking`
+-- AUTO_INCREMENT for table `bookings`
 --
-ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+ALTER TABLE `bookings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `c_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `c_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `room`
+-- AUTO_INCREMENT for table `rooms`
 --
-ALTER TABLE `room`
+ALTER TABLE `rooms`
   MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
