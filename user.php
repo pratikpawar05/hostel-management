@@ -263,16 +263,22 @@ $row = mysqli_fetch_assoc($result);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6 pr-1">
+                    <div class="col-md-4 pr-1">
                       <div class="form-group">
-                        <label>DOB: </label>
+                        <label>DOB </label>
                         <input type="text" class="form-control" value="<?php echo $row['c_dob']; ?>">
                       </div>
                     </div>
-                    <div class="col-md-6 pl-1">
+                    <div class="col-md-4 pl-1">
                       <div class="form-group">
-                        <label>Mobile: </label>
+                        <label>Mobile </label>
                         <input type="text" name="mobile" class="form-control" placeholder="Mobile No" value="<?php echo $row['c_mobile']; ?>">
+                      </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                      <div class="form-group">
+                        <label>Nic </label>
+                        <input type="number" name="nic" class="form-control" placeholder="NIC" value="<?php echo $row['c_nic']; ?>">
                       </div>
                     </div>
                   </div>
@@ -300,7 +306,7 @@ $row = mysqli_fetch_assoc($result);
                     <div class="col-md-4 pl-1">
                       <div class="form-group">
                         <label>Postal Code</label>
-                        <input type="number" name="postal_code" class="form-control" value="<?php echo $row['c_postal_code']; ?>">
+                        <input type="text" name="postal_code" class="form-control" value="<?php echo $row['c_postal_code']; ?>">
                       </div>
                     </div>
                   </div>

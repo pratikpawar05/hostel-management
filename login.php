@@ -2,17 +2,17 @@
 
 include 'connection.php';
 session_start();
-error_reporting(0);
+error_reporting(1);
 
 if (isset($_POST['submit'])) {
 	$email = $_POST['email'];
 	$password = md5($_POST['password']);
 
-	$sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+	$sql = "SELECT * FROM clients WHERE c_e_mail='$email' AND c_password='$password'";
 	$result = mysqli_query($conn, $sql);
 	if ($result->num_rows > 0) {
 		$row = mysqli_fetch_assoc($result);
-		$_SESSION['email'] = $row['email'];
+		$_SESSION['email'] = $row['c_e_mail'];
 	} else {
 		echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
 	}
@@ -20,6 +20,7 @@ if (isset($_POST['submit'])) {
 if (isset($_SESSION['email'])) {
 	header("Location: user.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +33,6 @@ if (isset($_SESSION['email'])) {
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" type="text/css" href="style.css">
-
 	<title>Login Form</title>
 </head>
 
@@ -55,5 +55,4 @@ if (isset($_SESSION['email'])) {
 		</div>
 	</div>
 </body>
-
 </html>
