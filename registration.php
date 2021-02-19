@@ -16,15 +16,15 @@ if (isset($_POST['submit'])) {
 	$postal_code = $_POST['postal_code'];
 	$country = $_POST['country'];
 	$city = $_POST['city'];
-	// $nic = $_POST['nic'];
+	$nic = $_POST['nic'];
 	$dob = $_POST['dob'];
 
 	$sql = "SELECT * FROM clients WHERE email='$email'";
 	$result = mysqli_query($conn, $sql);
 	if (!$result->num_rows > 0) {
 		$date = date("Y-m-d");
-		$sql = "INSERT INTO clients (c_type,c_f_name, c_l_name,c_e_mail, c_password,c_address,c_gender,c_mobile,c_city,c_postal_code,c_country,c_dob,c_created_at)
-					VALUES ('$type_of_registration','$first_name','$last_name', '$email', '$password','$address ','$gender','$mobile','$city','$postal_code','$country','$dob','$date')";
+		$sql = "INSERT INTO clients (c_type,c_f_name, c_l_name,c_e_mail, c_password,c_address,c_gender,c_mobile,c_city,c_postal_code,c_country,c_dob,c_nic,c_created_at)
+					VALUES ('$type_of_registration','$first_name','$last_name', '$email', '$password','$address ','$gender','$mobile','$city','$postal_code','$country','$dob','$nic','$date')";
 		$result = mysqli_query($conn, $sql);
 		if ($result) {
 			echo "<script>alert('Wow! User Registration Completed.')</script>";
@@ -108,7 +108,7 @@ if (isset($_SESSION['email'])) {
 								<input type="password" placeholder="Password" name="password" value="" required>
 							</div>
 							<div class="input-group">
-								<input type="text" placeholder="Enter Address" name="address" value="" required>
+								<input type="number" placeholder="Enter NIC" name="nic" value="" required>
 							</div>
 							<div class="input-group">
 								<input type="text" placeholder="Enter Postal Code" name="postal_code" value="" required>
@@ -126,6 +126,9 @@ if (isset($_SESSION['email'])) {
 							</div>
 
 						</div>
+						<div class="input-group">
+								<input type="text" placeholder="Enter Address" name="address" value="" required>
+							</div>
 						<div class="input-group">
 							<button name="submit" class="btn">Register</button>
 						</div>
