@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2021 at 07:31 PM
+-- Generation Time: Feb 20, 2021 at 07:51 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -80,7 +80,56 @@ INSERT INTO `clients` (`c_id`, `c_type`, `c_f_name`, `c_l_name`, `c_address`, `c
 (6, 'Student', 'GODSE', 'HARISHCHANDRA', 'A/P:VIDANI, ', '415523', 'India', NULL, 'VINAYAKGODSE97@GMAIL.COM', '2021-01-27', 'Male', '9404846862', 'Satara', '202cb962ac59075b964b07152d234b70', '2021-02-17 18:30:00'),
 (7, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse973@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-17 18:30:00'),
 (8, 'International', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse97@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', 'c20ad4d76fe97759aa27a0c99bff6710', '2021-02-18 18:30:00'),
-(9, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse9@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-18 18:30:00');
+(9, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', NULL, 'harishgodse9@gmail.com', '2021-02-20', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-18 18:30:00'),
+(10, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', 22222222, 'harishgodse@gmail.com', '2021-02-19', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-18 18:30:00'),
+(11, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', 123456, 'harishgodse9734@gmail.com', '2021-02-24', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-19 18:30:00'),
+(12, 'Student', 'Harishchandra', 'Godse', 'A/p:vidani, ', '415523', 'India', 23344455, 'harishgodse977@gmail.com', '2021-02-23', 'Male', '08779961334', 'phaltan', '202cb962ac59075b964b07152d234b70', '2021-02-19 18:30:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meal`
+--
+
+CREATE TABLE `meal` (
+  `meal_id` int(11) NOT NULL,
+  `meal_name` varchar(255) NOT NULL,
+  `meal_type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `meal`
+--
+
+INSERT INTO `meal` (`meal_id`, `meal_name`, `meal_type_id`) VALUES
+(1, 'milk', 1),
+(2, 'Bread', 1),
+(3, 'paneer', 2),
+(4, 'roti', 2),
+(5, 'meat', 3),
+(6, 'roti', 3),
+(7, 'veg kolhapuri', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meal_type`
+--
+
+CREATE TABLE `meal_type` (
+  `meal_type_id` int(11) NOT NULL,
+  `meal_type_name` varchar(255) NOT NULL,
+  `meal_type_price` bigint(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `meal_type`
+--
+
+INSERT INTO `meal_type` (`meal_type_id`, `meal_type_name`, `meal_type_price`) VALUES
+(1, 'Breakfast', 50),
+(2, 'Lunch', 100),
+(3, 'Dinner', 150);
 
 -- --------------------------------------------------------
 
@@ -187,6 +236,18 @@ ALTER TABLE `clients`
   ADD UNIQUE KEY `users_email_unique` (`c_e_mail`);
 
 --
+-- Indexes for table `meal`
+--
+ALTER TABLE `meal`
+  ADD PRIMARY KEY (`meal_id`);
+
+--
+-- Indexes for table `meal_type`
+--
+ALTER TABLE `meal_type`
+  ADD PRIMARY KEY (`meal_type_id`);
+
+--
 -- Indexes for table `rooms`
 --
 ALTER TABLE `rooms`
@@ -219,7 +280,19 @@ ALTER TABLE `bookings`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `c_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `c_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `meal`
+--
+ALTER TABLE `meal`
+  MODIFY `meal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `meal_type`
+--
+ALTER TABLE `meal_type`
+  MODIFY `meal_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rooms`
