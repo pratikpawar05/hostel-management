@@ -87,25 +87,75 @@ $day=$dateDiff%30;
 <body>
 	<div class="row">
 		<div class="containers col-md-6 container-fluid">
-			<form action="" method="POST" class="login-email">
+			<form action="book_now.php" method="POST" class="login-email">
       <div>
 				<p class="login-text" style="font-size: 2rem; font-weight: 800;">Room Available</p>
         <?php
         if (isset($_SESSION['email'])) {
+          $email=$_SESSION['email'];
+          $sql="SELECT * FROM `clients` WHERE c_e_mail='$email'";
+          $result=mysqli_query($conn,$sql);
+          while($row = mysqli_fetch_assoc($result)) {
           ?>
-          
+          <div style="display:none;">
+            <div class="input-group">
+            <input type="text" name="name" value="<?php echo $row['c_f_name'];?>" required>
+            </div>
+            <div class="input-group">
+            <input type="email"  name="email" value="<?php echo $row['c_e_mail'];?>" required>
+            </div>
+            <div class="input-group">
+              <input type="text"  name="mobile" value="<?php echo $row['c_mobile'];?>" required>
+            </div>
+            <div class="input-group">
+              <input type="number"  name="cid" value="<?php echo $row['c_id'];?>" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="checkin_date">Date Check In</label>
+              <input type="date" id="checkin_date1" value="<?php echo $_POST['checkin']?>" class="form-control" name="checkin" readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="checkout_date">Date Check Our</label>
+              <input type="date" id="checkout_date1"value="<?php echo $_POST['checkout']?>" class="form-control" name="checkout"readonly>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="adults" class="font-weight-bold text-black">ROOM TYPE</label>
+              <div class="field-icon-wrap">
+                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                <input name="type" id="types" value="<?php echo $_POST['type']?>"class="form-control" name="type" readonly> 
+              </div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="children" class="font-weight-bold text-black">No_Of_Rooms</label>
+              <div class="field-icon-wrap">
+                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                <input name="no_of_rooms" id="room_no" value="<?php echo $_POST['no_of_rooms']?>"class="form-control" name="no_of_rooms" readonly>
+              </div>
+            </div>
+            <div class="col-md-12 form-group">
+              <label for="children" class="font-weight-bold text-black">Total Payment</label>
+              <div class="field-icon-wrap">
+                <input name="total" id="total" value="<?php echo $total?>"class="form-control" name="no_of_rooms" readonly>
+              </div>
+            </div>
+            <div class="col-md-12 form-group">
+              <label for="children" class="font-weight-bold text-black">days</label>
+              <div class="field-icon-wrap">
+                <input name="days" id="days" value="<?php echo $dateDiff?>"class="form-control" name="no_of_rooms" readonly>
+              </div>
+            </div>
+          </div>
+          <p class="login-msg" style="font-size: 1rem;text-align:center;">Click on Book Now to book rooms</p>
+          <br>
           <div class="input-group">
-					<input type="email" placeholder="Email" name="email" value="" required>
-				</div>
-				<div class="input-group">
-					<input type="password" placeholder="Password" name="password" value="" required>
-				</div>
-				<div class="input-group">
-					<button name="submit" class="btn">Login</button>
-				</div>
-				<p class="login-register-text">Don't have an account? <a href="registration.php">Register Here</a>.</p>
+            <button name="submit" class="btn">Book Now</button>
+          </div>
+          <div class="input-group">
+              <a href="login.php" class="btn" style="background:#d9534f	;">Back</a>
+          </div>
         <?php
         }
+      }
         else{
           ?>
         <p class="login-msg" style="font-size: 1rem;text-align:center;">First login to book rooms</p>
