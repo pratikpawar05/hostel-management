@@ -28,7 +28,7 @@ $no_of_rooms=$_POST['no_of_rooms'];
 $total=$_POST['total'];
 // echo "total";
 // echo $total;
-$days=$_POST['days']
+$days=$_POST['days'];
 ?>
 
 <?php include_once './partials/header.php' ?>
@@ -61,7 +61,7 @@ overflow-x: hidden;
     <div class="col-xl-7 col-lg-9 ">
 					<div class="booking-form">
 						<h3>Booking Your Hotel</h3>
-						<form action="check_availibility.php" method="POST">
+						<form action="check_availibility.php" method="POST" id="bookingform">
                         <div class="row">
                         <div class="col-md-6">
                             <div class="check-date">
@@ -130,8 +130,9 @@ overflow-x: hidden;
 								<label for="room">Total Payment:</label>
 								<input type="number" name="total" id="total" value="<?php echo $total;?>"class="form-control" readonly>
 							</div>
-							<a class="btn btn-warning" id="pay_now" style="color:white">Pay Now</a>
-                            <a class="btn btn-primary"  id="pay_later" style="color:white">Pay At Counter</a>
+                            <input type="number" name="cid" id="cid" value="<?php echo $cid;?>"class="form-control" hidden>
+							<a class="btn btn-warning" id="pay_now" style="color:white" onclick="paynow();">Pay Now</a>
+                            <a class="btn btn-primary"  id="pay_later" style="color:white" onclick="paylater();">Pay At Counter</a>
 
 						</form>
 					</div>
@@ -207,6 +208,14 @@ $("#breakfast").change(function() {
     }
     console.log('changed');
   });
+  function paylater() {
+    document.getElementById("bookingform").action="paylater.php";
+    document.getElementById("bookingform").submit();
+  }
+  function paynow() {
+    document.getElementById("bookingform").action="paynow.php";
+    document.getElementById("bookingform").submit();
+  }
 </script>
 </body>
 
