@@ -1,0 +1,37 @@
+<?php
+session_start();
+include 'connection.php';
+$cid=$_POST['cid'];
+echo "cid";
+echo $cid;
+$chin=$_POST['checkin'];
+echo "checkin";
+echo $chin;
+$d=date_create($chin);
+$chi=date_format($d,"Y-m-d");
+$b=date_format($d,"d");
+$chout=$_POST['checkout'];
+echo "checkout";
+echo $chout;
+$g=date_create($chout);
+$cho=date_format($g,"Y-m-d");
+$f= date_format($g,"d");
+$type=$_POST['type'];
+echo "type";
+echo $type;
+$no_of_rooms=$_POST['no_of_rooms'];
+echo "noofrooms";
+echo $no_of_rooms;
+$total=$_POST['total'];
+echo "total";
+echo $total;
+$breakfast=$_POST['breakfast'];
+echo "breakfast";
+echo $breakfast;
+$lunch=$_POST['lunch'];
+echo "lunch";
+echo $lunch;
+$dinner=$_POST['dinner'];
+echo "dinner";
+echo $dinner;
+?>
