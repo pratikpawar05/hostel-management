@@ -3,7 +3,8 @@ include 'connection.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+function updateProfile($conn)
+{
   $type_of_registration = $_POST['type_of_registration'];
   $first_name = $_POST['f_name'];
   $last_name = $_POST['l_name'];
@@ -23,6 +24,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<script>alert('Wow! User Profile Updation Completed.')</script>";
   } else {
     echo "<script>alert('Woops! Something Wrong Went.')</script>";
+  }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  switch ($_POST['request']) {
+    case 'logout':
+      # code...
+      session_destroy();
+      header("Location: index.php");
+      break;
+    case 'Update Profile':
+      # code...
+      updateProfile($conn);
+      break;
+    default:
+      # code...
+      break;
   }
 }
 if (!isset($_SESSION['email'])) {
@@ -66,10 +83,7 @@ $row = mysqli_fetch_assoc($result);
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
-          <!-- <div class="logo-image-big">
-            <img src="./assets/img/logo-big.png">
-          </div> -->
+            <?php echo $row['c_f_name']." ".$row['c_l_name']; ?>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -80,17 +94,22 @@ $row = mysqli_fetch_assoc($result);
               <p>Dashboard</p>
             </a>
           </li> -->
-          <li class="active ">
+          <li class="">
+            <a href="./index.php">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li class="">
             <a href="./user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>User Profile</p>
             </a>
           </li>
           <li class="">
-            <a href="./index.php">
-              <i class="nc-icon nc-single-02"></i>
-              <p>Home</p>
-            </a>
+            <form action="" method="post">
+              <input type="submit" class="form-control" name="request" value="logout">
+            </form>
           </li>
         </ul>
       </div>
@@ -236,14 +255,14 @@ $row = mysqli_fetch_assoc($result);
                         <select id="gender" name="gender" class="form-control custom-select bg-white border-left-0 border-md select-box">
                           <option value="">Enter Gender</option>
                           <option value="Male" <?php if ($row['c_gender'] == "Male") {
-                                                    echo "Selected";
-                                                  } ?>>Male</option>
+                                                  echo "Selected";
+                                                } ?>>Male</option>
                           <option value="Female" <?php if ($row['c_gender'] == "Female") {
                                                     echo "Selected";
                                                   } ?>>Female</option>
                           <option value="Transgender" <?php if ($row['c_gender'] == "Transgender") {
-                                                    echo "Selected";
-                                                  } ?> >Transgender</option>
+                                                        echo "Selected";
+                                                      } ?>>Transgender</option>
                         </select>
                       </div>
                     </div>
@@ -312,7 +331,8 @@ $row = mysqli_fetch_assoc($result);
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                      <input type="submit" name="request" value="Update Profile" class="btn btn-primary btn-round">
+                      <!-- <button type="submit"  class="btn btn-primary btn-round">Update Profile</button> -->
                     </div>
                   </div>
                 </form>
