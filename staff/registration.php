@@ -65,10 +65,10 @@ if (isset($_SESSION['staff'])) {
 					<div class="row">
 						<div class="col-md-6">
 							<div class="input-group">
-								<input type="text" placeholder="First Name" name="f_name" value="" required>
+								<input type="text" placeholder="First Name" name="f_name" value="" required  pattern="[a-zA-Z]+" title="Please Enter First Name In Correct Format">
 							</div>
 							<div class="input-group">
-								<input type="text" placeholder="Last Name" name="l_name" value="" required>
+								<input type="text" placeholder="Last Name" name="l_name" value="" required  pattern="[a-zA-Z]+" title="Please Enter Last Name In Correct Format">
 							</div>
 							<div class="input-group">
 								<select id="type_of_registration" name="type_of_registration" class="form-control custom-select bg-white border-left-0 border-md select-box">

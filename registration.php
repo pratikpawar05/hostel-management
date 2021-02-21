@@ -18,13 +18,15 @@ if (isset($_POST['submit'])) {
 	$city = $_POST['city'];
 	$nic = $_POST['nic'];
 	$dob = $_POST['dob'];
+	$date = date("Y-m-d");
 
 	$sql = "SELECT * FROM clients WHERE c_e_mail='$email'";
 	$result = mysqli_query($conn, $sql);
-	if (!$result->num_rows > 0) {
-		$date = date("Y-m-d");
+	if ($result->num_rows==0) {
+		
 		$sql = "INSERT INTO clients (c_type,c_f_name, c_l_name,c_e_mail, c_password,c_address,c_gender,c_mobile,c_city,c_postal_code,c_country,c_dob,c_nic,c_created_at)
 					VALUES ('$type_of_registration','$first_name','$last_name', '$email', '$password','$address ','$gender','$mobile','$city','$postal_code','$country','$dob','$nic','$date')";
+		// print_r($sql);
 		$result = mysqli_query($conn, $sql);
 		if ($result) {
 			echo "<script>alert('Wow! User Registration Completed.')</script>";
@@ -78,10 +80,10 @@ if (isset($_SESSION['email'])) {
 					<div class="row">
 						<div class="col-md-6">
 							<div class="input-group">
-								<input type="text" placeholder="First Name" name="f_name" value="" required>
+								<input type="text" placeholder="First Name" name="f_name" value="" required pattern="[a-zA-Z]+" title="Please Enter First Name In Correct Format">
 							</div>
 							<div class="input-group">
-								<input type="text" placeholder="Last Name" name="l_name" value="" required>
+								<input type="text" placeholder="Last Name" name="l_name" value="" required  pattern="[a-zA-Z]+" title="Please Enter Last Name In Correct Format">
 							</div>
 							<div class="input-group">
 								<select id="type_of_registration" name="type_of_registration" class="form-control custom-select bg-white border-left-0 border-md select-box">
@@ -94,7 +96,7 @@ if (isset($_SESSION['email'])) {
 								<input type="text" placeholder="Enter Country" name="country" value="" required>
 							</div>
 							<div class="input-group">
-								<input type="text" placeholder="Enter Mobile" name="mobile" value="" required>
+								<input type="number" placeholder="Enter Mobile" name="mobile" value="" required>
 							</div>
 							<div class="input-group">
 								<input type="date" placeholder="Enter DOB" name="dob" value="" required>
@@ -108,10 +110,10 @@ if (isset($_SESSION['email'])) {
 								<input type="password" placeholder="Password" name="password" value="" required>
 							</div>
 							<div class="input-group">
-								<input type="number" placeholder="Enter NIC" name="nic" value="" required>
+								<input type="text" placeholder="Enter NIC" name="nic" required pattern="[\w]{1,14}"  title="Please Enter NIC Upto 14 Digits Only">
 							</div>
 							<div class="input-group">
-								<input type="text" placeholder="Enter Postal Code" name="postal_code" value="" required>
+								<input type="number" placeholder="Enter Postal Code" name="postal_code" required>
 							</div>
 							<div class="input-group">
 								<input type="text" placeholder="Enter City" name="city" value="" required>
