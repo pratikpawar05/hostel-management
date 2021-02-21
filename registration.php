@@ -19,7 +19,12 @@ if (isset($_POST['submit'])) {
 	$nic = $_POST['nic'];
 	$dob = $_POST['dob'];
 	$date = date("Y-m-d");
-
+	
+	if (empty($type_of_registration) || empty($gender)) {
+		echo "<script>alert('Woops! Plz Be Sure To select Gender Or Type Of Registration.')</script>";
+		return;
+	}
+	
 	$sql = "SELECT * FROM clients WHERE c_e_mail='$email'";
 	$result = mysqli_query($conn, $sql);
 	if ($result->num_rows==0) {

@@ -11,14 +11,17 @@ if (isset($_POST['submit'])) {
 	$email = $_POST['email'];
 	$mobile = $_POST['mobile'];
 	$password = md5($_POST['password']);
+	$dob = $_POST['dob'];
 	// $address = $_POST['address'];
 	// $gender = $_POST['gender'];
 	// $postal_code = $_POST['postal_code'];
 	// $country = $_POST['country'];
 	// $city = $_POST['city'];
 	// $nic = $_POST['nic'];
-	$dob = $_POST['dob'];
-
+	if (empty($type_of_registration)) {
+		echo "<script>alert('Woops! Plz Be Sure To select Type Of Registration.')</script>";
+		return;
+	}
 	$sql = "SELECT * FROM staffs WHERE c_e_mail='$email'";
 	$result = mysqli_query($conn, $sql);
 	if (!$result->num_rows > 0) {
@@ -65,10 +68,10 @@ if (isset($_SESSION['staff'])) {
 					<div class="row">
 						<div class="col-md-6">
 							<div class="input-group">
-								<input type="text" placeholder="First Name" name="f_name" value="" required  pattern="[a-zA-Z]+" title="Please Enter First Name In Correct Format">
+								<input type="text" placeholder="First Name" name="f_name" value="" required pattern="[a-zA-Z]+" title="Please Enter First Name In Correct Format">
 							</div>
 							<div class="input-group">
-								<input type="text" placeholder="Last Name" name="l_name" value="" required  pattern="[a-zA-Z]+" title="Please Enter Last Name In Correct Format">
+								<input type="text" placeholder="Last Name" name="l_name" value="" required pattern="[a-zA-Z]+" title="Please Enter Last Name In Correct Format">
 							</div>
 							<div class="input-group">
 								<select id="type_of_registration" name="type_of_registration" class="form-control custom-select bg-white border-left-0 border-md select-box">
