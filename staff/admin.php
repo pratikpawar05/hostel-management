@@ -39,10 +39,6 @@ if (!isset($_SESSION['staff'])) {
     header("Location: login.php");
 }
 
-$email = $_SESSION['staff'];
-$sql = "SELECT * FROM staffs inner join staff_type on staffs.s_type_id=staff_type.s_type_id where s_e_mail='$email'";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>

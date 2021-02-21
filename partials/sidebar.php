@@ -6,14 +6,13 @@
             </div>
             <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="" class="simple-text logo-normal">
             <?php $email = $_SESSION['staff'];
-$sql = "SELECT s_f_name,s_l_name FROM staffs inner join staff_type on staffs.s_type_id=staff_type.s_type_id where s_e_mail='$email'";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result); 
-echo $row['s_f_name']." ". $row['s_l_name'];
-?>
-
+            $sql = "SELECT * FROM staffs inner join staff_type on staffs.s_type_id=staff_type.s_type_id where s_e_mail='$email'";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($result);
+            echo $row['s_f_name'] . " " . $row['s_l_name'];
+            ?>
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -45,6 +44,22 @@ echo $row['s_f_name']." ". $row['s_l_name'];
                         <p>Room Staff</p>
                     </a>
                 </li>
+            <?php } ?>
+            <?php if ($_SESSION['staff_type_id'] == '1' || $_SESSION['staff_type_id'] == '3') { ?>
+            <li class="">
+                <a href="#">
+                    <i class="nc-icon nc-single-02"></i>
+                    <p>Food Section</p>
+                </a>
+            </li>
+            <?php } ?>
+            <?php if ($_SESSION['staff_type_id'] == '1'  || $_SESSION['staff_type_id'] == '2') { ?>
+            <li class="">
+                <a href="#">
+                    <i class="nc-icon nc-single-02"></i>
+                    <p>Room Section</p>
+                </a>
+            </li>
             <?php } ?>
             <li class="">
                 <form action="" method="post">
