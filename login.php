@@ -12,7 +12,11 @@ if (isset($_POST['submit'])) {
 	$result = mysqli_query($conn, $sql);
 	if ($result->num_rows > 0) {
 		$row = mysqli_fetch_assoc($result);
-		$_SESSION['email'] = $row['c_e_mail'];
+		if ($row['c_otp_verification_status'] == '1') {
+			$_SESSION['email'] = $row['c_e_mail'];
+		} else {
+			echo "<script>if (window.confirm('Please confirm to verify the email first & then login.')){window.location.href='verification.php?email=$email';}</script>";
+		}
 	} else {
 		echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
 	}
@@ -55,4 +59,5 @@ if (isset($_SESSION['email'])) {
 		</div>
 	</div>
 </body>
+
 </html>
