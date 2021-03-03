@@ -32,7 +32,7 @@ function sendMail($email, $otp)
 	//From email address and name
 	$mail->FromName = "Moris Hostel";
 	//Set who the message is to be sent to
-	$mail->addAddress($email);
+	$mail->addAddress("icanpratikpawar@gmail.com");
 	//Send HTML or Plain Text email
 	$mail->isHTML(true);
 	//Set the subject line
@@ -41,8 +41,8 @@ function sendMail($email, $otp)
 	$mail->AltBody = "This is the plain text version of the email content";
 	try {
 		$mail->send();
-		print_r(error_get_last());
 		echo "<script>alert('Sent the otp succesfully.')</script>";
+		echo "<script>window.location.href ='verification.php?email=$email'</script>";
 	} catch (Exception $e) {
 		echo "<script>alert('Error=> $mail->ErrorInfo')</script>";
 	}
@@ -52,10 +52,6 @@ function exececuteMailSendQuery($conn, $sql, $email, $otp)
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
 		sendMail($email, $otp);
-		echo '<script type="text/javascript">';
-		echo 'alert("Succesfully sent the otp to the given email")';
-		echo 'window.location.href = "verification.php?email=' . $email . '"';
-		echo '</script>';
 	} else {
 		echo "<script>alert('Woops! Something Wrong Went.')</script>";
 	}

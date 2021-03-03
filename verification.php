@@ -49,7 +49,6 @@ function sendMail($email, $otp)
     $mail->AltBody = "This is the plain text version of the email content";
     try {
         $mail->send();
-        print_r(error_get_last());
         echo "<script>alert('Sent the otp succesfully.')</script>";
     } catch (Exception $e) {
         echo "<script>alert('Error=> $mail->ErrorInfo')</script>";
@@ -60,7 +59,7 @@ function otpVerified($conn, $sql)
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo '<script type="text/javascript">';
-        echo 'alert("Successlly verified");';
+        echo 'alert("Successfully verified");';
         echo 'window.location.href = "login.php";';
         echo '</script>';
     }
