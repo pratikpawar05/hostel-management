@@ -74,7 +74,7 @@ overflow-x: hidden;
                         <div class="col-md-6">
                             <div class="check-date">
 								<label for="name">Mobile</label>
-								<input type="number" class="" id="name" name="name" value="<?php echo $mobile;?>" readonly>
+								<input type="number" class="" id="mobile" name="mobile" value="<?php echo $mobile;?>" readonly>
 							</div>
                         </div>
                         </div>
