@@ -31,6 +31,33 @@ $month= abs(round($dateDiff/30));
 // echo "month";
 // echo $month;
 $day=$dateDiff%30;
+$in=0;
+$type=mysqli_real_escape_string($conn, htmlspecialchars($_POST['type']));
+if($type==1 || $type==3)
+{
+  if($_POST['no_of_child']==0 && $_POST['no_of_adults']==1)
+  {
+      $in=1;
+  }
+}
+elseif ($type==2 || $type==4)
+{
+  if($_POST['no_of_child']<3 && $_POST['no_of_child']>=0 && $_POST['no_of_adults']<3 && $_POST['no_of_adults']>=0)
+  {
+      $in=1;
+  }
+  # code...
+}
+elseif ($type==5)
+{
+  if($_POST['no_of_child']<3 && $_POST['no_of_child']>=0 && $_POST['no_of_adults']<3 && $_POST['no_of_adults']>=0)
+  {
+      $in=1;
+  }
+  # code...
+}
+if($in)
+{
   if($_POST['checkin']<$_POST['checkout']&&$_POST['checkin']>=$date)
   {
   	$checkin=mysqli_real_escape_string($conn, htmlspecialchars($_POST['checkin']));
@@ -43,7 +70,7 @@ $day=$dateDiff%30;
     //echo $cho1;
     //echo $cho;
   	$type=mysqli_real_escape_string($conn, htmlspecialchars($_POST['type']));
-    echo $type;
+    //echo $type;
   	 $get_data = mysqli_query($conn,"SELECT * FROM `rooms` where `ROOM_ID` NOT in (SELECT `ROOM_ID` FROM `bookings` WHERE ((B_CHECK_IN_DATE <= '$chi' AND B_CHECK_OUT_DATE <= '$cho') AND (B_CHECK_OUT_DATE >= '$chi' AND B_CHECK_OUT_DATE >= '$cho')) OR (B_CHECK_IN_DATE BETWEEN '$chi' AND '$cho' OR B_CHECK_OUT_DATE BETWEEN '$chi' AND '$cho')) AND ROOM_TYPE_ID='$type'");
     // $row=mysqli_fetch_array($get_data);
     //  print_r($get_data);
@@ -52,7 +79,6 @@ $day=$dateDiff%30;
     //    print_r($row);
     //  }
      if(mysqli_num_rows($get_data) > 0) {
-      if(mysqli_num_rows($get_data) >= 1){
        $get_prize= mysqli_query($conn,"SELECT `daily_rate`,`monthly_rate` FROM `room_type` WHERE `room_type_id`='$type' LIMIT 1");
        while ($row = mysqli_fetch_assoc($get_prize)) {
           $daily_price=$row['daily_rate'];
@@ -191,6 +217,102 @@ $day=$dateDiff%30;
 </html>
 <?php
     }
+  else{
+    ?>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Room Unavailable</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <style type="text/css">
+          .contain{
+            margin-top: 10%;
+          }
+  </style>
+</head>
+<body>
+<div class="row contain">
+<div class="col-md-4 container-fluid ">   
+      <center><img src="img/ta.png" width="70%" height="50%"></center>
+      <br>
+      <center><a href="./" class="btn btn-danger">Back to Home</a></center>
+</div>  
+</div>
+</div>  
+</body>
+</html>
+    <?php
   }
+  }
+  else{
+    ?>
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Invalid Inputs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <style type="text/css">
+          .contain{
+            margin-top: 10%;
+          }
+  </style>
+</head>
+<body>
+<div class="row contain">
+<div class="col-md-4 container-fluid ">   
+      <center><img src="img/in.jpg" width="70%" height="50%"></center>
+      <br>
+      <center><a href="./" class="btn btn-danger">Back to Home</a></center>
+</div>  
+</div>
+</div>  
+</body>
+</html>
+<?php
+  }
+}
+else{
+  ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Invalid Inputs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <style type="text/css">
+          .contain{
+            margin-top: 10%;
+          }
+  </style>
+</head>
+<body>
+<div class="row contain">
+<div class="col-md-4 container-fluid ">   
+      <center><img src="img/in.jpg" width="70%" height="50%"></center>
+      <br>
+      <center><a href="./" class="btn btn-danger">Back to Home</a></center>
+</div>  
+</div>
+</div>  
+</body>
+</html>
+<?php
 }
 ?>
