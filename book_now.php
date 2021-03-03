@@ -29,6 +29,8 @@ $total=$_POST['total'];
 // echo "total";
 // echo $total;
 $days=$_POST['days'];
+$child=$_POST['child'];
+$adults=$_POST['adults']
 ?>
 
 <?php include_once './partials/header.php' ?>
@@ -96,6 +98,20 @@ overflow-x: hidden;
                             </div>
                             <div class="row">
                             <div class="col-md-6">
+                             <div class="select-option">
+                                <label for="no_of_child">No Of Child:</label>
+                                <input type="number" name="no_of_child" id="no_of_child" value="<?php echo $child; ?>"class="form-control" readonly>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="select-option">
+                                <label for="no_of_adult">No Of Adult:</label>
+                                <input type="number" name="no_of_adult" id="no_of_adult" value="<?php echo $adults; ?>"class="form-control" readonly>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-6">
 							<div class="select-option">
 								<label for="types">TYPES:</label>
                                 <?php
@@ -113,19 +129,6 @@ overflow-x: hidden;
 							</div>
                             </div>
                             </div>
-                            <label for="choosemeal">Choose meal</label>
-                            <div class="">
-								<input type="checkbox" id="breakfast" name="breakfast" value="0" >
-                                <label for="breakfast">Breakfast</label>
-							</div>
-                            <div class="">
-								<input type="checkbox" id="lunch" name="lunch" value="0">
-                                <label for="lunch">Lunch</label>
-							</div>
-                            <div class="">
-								<input type="checkbox" id="dinner" name="dinner" value="0">
-                                <label for="dinner">Dinner</label>
-							</div>
                             <div class="select-option">
 								<label for="room">Total Payment:</label>
 								<input type="number" name="total" id="total" value="<?php echo $total;?>"class="form-control" readonly>
@@ -161,54 +164,7 @@ overflow-x: hidden;
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
 <script>
-var total=<?php echo $total;?>;
-var days=<?php echo $days;?>;
-$("#breakfast").change(function() {
-    if(this.checked)
-    {
-    total=total+(50*days);
-    $('#total').val(total);
-    $("#breakfast").val(1);
-    }
-    else
-    {
-    total=total-(50*days);
-    $('#total').val(total); 
-    $("#breakfast").val(0);  
-    }
-    console.log('changed');
-  });
-  $("#lunch").change(function() {
-    if(this.checked)
-    {
-    total=total+(100*days);
-    $('#total').val(total);
-    $('#lunch').val(1);
-    }
-    else
-    {
-    total=total-(100*days);
-    $('#total').val(total);
-    $('#lunch').val(0);   
-    }
-    console.log('changed');
-  });
-  $("#dinner").change(function() {
-    if(this.checked)
-    {
-    total=total+(150*days);
-    $('#total').val(total);
-    $('#dinner').val(1);
-    }
-    else
-    {
-    total=total-(150*days);
-    $('#total').val(total); 
-    $('#dinner').val(0);  
-    }
-    console.log('changed');
-  });
-  function paylater() {
+function paylater() {
     document.getElementById("bookingform").action="paylater.php";
     document.getElementById("bookingform").submit();
   }

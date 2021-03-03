@@ -31,7 +31,7 @@ $month= abs(round($dateDiff/30));
 // echo "month";
 // echo $month;
 $day=$dateDiff%30;
-  if($_POST['checkin']<$_POST['checkout']&&$_POST['checkin']>=$date&&$_POST['no_of_rooms']>0)
+  if($_POST['checkin']<$_POST['checkout']&&$_POST['checkin']>=$date)
   {
   	$checkin=mysqli_real_escape_string($conn, htmlspecialchars($_POST['checkin']));
     $a=date_create($checkin);
@@ -44,9 +44,7 @@ $day=$dateDiff%30;
     //echo $cho;
   	$type=mysqli_real_escape_string($conn, htmlspecialchars($_POST['type']));
     echo $type;
-  	$no_of_rooms=mysqli_real_escape_string($conn, htmlspecialchars($_POST['no_of_rooms']));
-    echo $no_of_rooms;
-  	 $get_data = mysqli_query($conn,"SELECT * FROM `rooms` where `room_no` NOT in (SELECT `room_no` FROM `bookings` WHERE ((checkin_date <= '$chi' AND checkin_date <= '$cho') AND (checkout_date >= '$chi' AND checkout_date >= '$cho')) OR (checkin_date BETWEEN '$chi' AND '$cho' OR checkout_date BETWEEN '$chi' AND '$cho')) AND room_type_id='$type'");
+  	 $get_data = mysqli_query($conn,"SELECT * FROM `rooms` where `ROOM_ID` NOT in (SELECT `ROOM_ID` FROM `bookings` WHERE ((B_CHECK_IN_DATE <= '$chi' AND B_CHECK_OUT_DATE <= '$cho') AND (B_CHECK_OUT_DATE >= '$chi' AND B_CHECK_OUT_DATE >= '$cho')) OR (B_CHECK_IN_DATE BETWEEN '$chi' AND '$cho' OR B_CHECK_OUT_DATE BETWEEN '$chi' AND '$cho')) AND ROOM_TYPE_ID='$type'");
     // $row=mysqli_fetch_array($get_data);
     //  print_r($get_data);
     //  while($row=mysqli_fetch_array($get_data))
@@ -54,7 +52,7 @@ $day=$dateDiff%30;
     //    print_r($row);
     //  }
      if(mysqli_num_rows($get_data) > 0) {
-      if(mysqli_num_rows($get_data) >= $no_of_rooms){
+      if(mysqli_num_rows($get_data) >= 1){
        $get_prize= mysqli_query($conn,"SELECT `daily_rate`,`monthly_rate` FROM `room_type` WHERE `room_type_id`='$type' LIMIT 1");
        while ($row = mysqli_fetch_assoc($get_prize)) {
           $daily_price=$row['daily_rate'];
@@ -64,8 +62,8 @@ $day=$dateDiff%30;
           // echo $monthly_price;
           
         }
-        $daily_total=$daily_price*$day*$no_of_rooms;
-        $monthly_total=$monthly_price*$month*$no_of_rooms;
+        $daily_total=$daily_price*$day;
+        $monthly_total=$monthly_price*$month;
         $total=$daily_total+$monthly_total;
         // echo $total;
         // echo $monthly_total;
@@ -119,6 +117,20 @@ $day=$dateDiff%30;
               <input type="date" id="checkout_date1"value="<?php echo $_POST['checkout']?>" class="form-control" name="checkout"readonly>
             </div>
             <div class="col-md-6 form-group">
+              <label for="child" class="font-weight-bold text-black">NO OF CHILD</label>
+              <div class="field-icon-wrap">
+                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                <input name="child" id="child" value="<?php echo $_POST['no_of_child']?>"class="form-control" name="child" readonly> 
+              </div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="adults" class="font-weight-bold text-black">NO OF ADULTS</label>
+              <div class="field-icon-wrap">
+                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                <input name="adults" id="adults" value="<?php echo $_POST['no_of_adults']?>"class="form-control" name="adults" readonly> 
+              </div>
+            </div>
+            <div class="col-md-6 form-group">
               <label for="adults" class="font-weight-bold text-black">ROOM TYPE</label>
               <div class="field-icon-wrap">
                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
@@ -129,7 +141,7 @@ $day=$dateDiff%30;
               <label for="children" class="font-weight-bold text-black">No_Of_Rooms</label>
               <div class="field-icon-wrap">
                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                <input name="no_of_rooms" id="room_no" value="<?php echo $_POST['no_of_rooms']?>"class="form-control" name="no_of_rooms" readonly>
+                <input name="no_of_rooms" id="room_no" value="1"class="form-control" name="no_of_rooms" readonly>
               </div>
             </div>
             <div class="col-md-12 form-group">
