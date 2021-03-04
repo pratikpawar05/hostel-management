@@ -77,7 +77,7 @@
 							<nav class="mainmenu">
 								<ul>
 
-									<li><a href="./rooms.html">Rooms</a></li>
+									<li><a href="./rooms.php">Rooms</a></li>
 
 									<li> <a href="./pages.html">Pages</a>
 										<ul class="dropdown">
