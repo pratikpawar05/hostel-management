@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connection.php';
 include 'razorpay/Razorpay.php';
 
@@ -32,8 +33,8 @@ $no_of_rooms=$_POST['no_of_rooms'];
 $total=$_POST['total'];
 $no_of_adult=$_POST['no_of_adult'];
 $no_of_child=$_POST['no_of_child'];
-$checkin=mysqli_real_escape_string($conn, htmlspecialchars($_POST['checkin']));
-$checkout=mysqli_real_escape_string($conn, htmlspecialchars($_POST['checkout']));
+$checkin=$_POST['checkin'];
+$checkout=$_POST['checkout'];
     
 $keyId='rzp_test_UuqopNwEkHsRf5';
 $secretKey='jjpRUMAWVRjuOeNABjbKUPSN';
@@ -61,9 +62,9 @@ $order  = $api->order->create(array(
     data-currency="INR"
     data-order_id="<?php echo $order->id; ?>"//This is a sample Order ID. Pass the `id` obtained in the response of the previous step.
     data-buttontext="Pay Now"
-    data-name="Shopping"
+    data-name="Sona Hostel"
     data-description="For payment"
-    data-image="http://rooms52.com/img/person_1.png"
+    data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT09ayt6ooaKk7qpmM6tpHvP7E_-9ENyH1s-g&usqp=CAU"
     data-prefill.name="<?php echo $Customer_Name; ?>"
     data-prefill.email="<?php echo $Customer_Email; ?>"
     data-prefill.contact="<?php echo $Customer_ContactNo; ?>"

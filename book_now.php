@@ -169,7 +169,7 @@ function paylater() {
     document.getElementById("bookingform").submit();
   }
   function paynow() {
-    document.getElementById("bookingform").action="paynow.php";
+    document.getElementById("bookingform").action="pay.php";
     document.getElementById("bookingform").submit();
   }
 </script>

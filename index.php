@@ -376,6 +376,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<script src="js/jquery.slicknav.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/main.js"></script>
+	<script>
+		if (sessionStorage.getItem('beenhere') ==='1') {
+    sessionStorage.setItem('beenhere', '0');
+    }
+	</script>
 </body>
 
 </html>
