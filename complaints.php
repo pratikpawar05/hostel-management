@@ -3,20 +3,10 @@ include 'connection.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 session_start();
-function updateProfile($conn)
+function Complaint($conn)
 {
-  $type_of_registration = $_POST['type_of_registration'];
-  $first_name = $_POST['f_name'];
-  $last_name = $_POST['l_name'];
-  $email = $_POST['email'];
-  $mobile = $_POST['mobile'];
-  // $password = md5($_POST['password']);
-  $address = $_POST['address'];
-  $gender = $_POST['gender'];
-  $postal_code = $_POST['postal_code'];
-  $country = $_POST['country'];
-  $city = $_POST['city'];
-  // $nic = $_POST['nic'];
+  $type_of_complaint = $_POST['type_of_complaint'];
+  $complaints = $_POST['complaints'];
   $date = date("Y-m-d");
   $sql = "UPDATE clients SET `c_type`='$type_of_registration',`c_f_name`='$first_name', `c_l_name`='$last_name',`c_address`='$address',`c_gender`='$gender',`c_mobile`='$mobile',`c_city`='$city',`c_postal_code`='$postal_code',`c_country`='$country' where `c_e_mail`='$email'";
   $result = mysqli_query($conn, $sql);
@@ -33,9 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       session_destroy();
       header("Location: index.php");
       break;
-    case 'Update Profile':
+    case 'Complaint':
       # code...
-      updateProfile($conn);
+      Complaint($conn);
       break;
     default:
       # code...
@@ -187,157 +177,38 @@ $row = mysqli_fetch_assoc($result);
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
-          <div class="col-md-4">
-            <div class="card card-user">
-              <div class="image">
-                <img src="./assets/img/damir-bosnjak.jpg" alt="...">
-              </div>
-              <div class="card-body">
-                <div class="author">
-                  <a href="#">
-                    <img class="avatar border-gray" src="./assets/img/mike.jpg" alt="...">
-                    <h5 class="title">Chet Faker</h5>
-                  </a>
-                  <p class="description">
-                    @chetfaker
-                  </p>
-                </div>
-                <p class="description text-center">
-                  "I like the way you work it <br>
-                  No diggity <br>
-                  I wanna bag it up"
-                </p>
-              </div>
-              <div class="card-footer">
-                <hr>
-                <div class="button-container">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-6 col-6 ml-auto">
-                      <h5>12<br><small>Files</small></h5>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-                      <h5>2GB<br><small>Used</small></h5>
-                    </div>
-                    <div class="col-lg-3 mr-auto">
-                      <h5>24,6$<br><small>Spent</small></h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8">
+          <div class="col-md-12">
             <div class="card card-user">
               <div class="card-header">
-                <h5 class="card-title">Edit Profile</h5>
+                <h5 class="card-title">Complaint</h5>
               </div>
               <div class="card-body">
                 <form action="" method="POST">
                   <div class="row">
 
-                    <div class="col-md-5 px-1">
+                    <div class="col-md-8 px-1 ml-auto mr-auto">
                       <div class="form-group">
-                        <label>Type of Registration</label>
-                        <select id="type_of_registration" name="type_of_registration" class="form-control custom-select bg-white border-left-0 border-md select-box">
-                          <option value="">Enter Type Of Registration</option>
-                          <option value="Student" <?php if ($row['c_type'] == "Student") {
-                                                    echo "Selected";
-                                                  } ?>>Student</option>
-                          <option value="International" <?php if ($row['c_type'] == "International") {
-                                                          echo "Selected";
-                                                        } ?>>International</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $row['c_e_mail']; ?>" readonly>
-                      </div>
-                    </div>
-                    <div class="col-md-3 pl-1">
-                      <div class="form-group">
-                        <label for="">Gender</label>
-                        <select id="gender" name="gender" class="form-control custom-select bg-white border-left-0 border-md select-box">
-                          <option value="">Enter Gender</option>
-                          <option value="Male" <?php if ($row['c_gender'] == "Male") {
-                                                  echo "Selected";
-                                                } ?>>Male</option>
-                          <option value="Female" <?php if ($row['c_gender'] == "Female") {
-                                                    echo "Selected";
-                                                  } ?>>Female</option>
-                          <option value="Transgender" <?php if ($row['c_gender'] == "Transgender") {
-                                                        echo "Selected";
-                                                      } ?>>Transgender</option>
+                        <label>Complaint type</label>
+                        <select id="type_of_complaint" name="type_of_complaint" class="form-control custom-select bg-white border-left-0 border-md select-box">
+                          <option value="">Select Complaint Type</option>
+                          <option value="room">Room</option>
+                          <option value="food">Food</option>
                         </select>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6 pr-1">
+                    <div class="col-md-12 pr-1">
                       <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" name="f_name" class="form-control" placeholder="Company" value="<?php echo $row['c_f_name']; ?>">
-                      </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
-                      <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" name="l_name" class="form-control" placeholder="Last Name" value="<?php echo $row['c_l_name']; ?>">
+                        <label>Complaint text</label>
+                        <textarea type="textarea" name="complaint" class="form-control" placeholder="complaint text.." rows="500"></textarea>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-4 pr-1">
-                      <div class="form-group">
-                        <label>DOB </label>
-                        <input type="text" class="form-control" value="<?php echo $row['c_dob']; ?>">
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label>Mobile </label>
-                        <input type="number" name="mobile" class="form-control" placeholder="Mobile No" value="<?php echo $row['c_mobile']; ?>">
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label>Nic </label>
-                        <input type="text" name="nic" class="form-control" placeholder="NIC" value="<?php echo $row['c_nic']; ?>">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" name="address" placeholder="Home Address" value="<?php echo $row['c_address']; ?>">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4 pr-1">
-                      <div class="form-group">
-                        <label>City</label>
-                        <input type="text" name="city" class="form-control" placeholder="City" value="<?php echo $row['c_city']; ?>">
-                      </div>
-                    </div>
-                    <div class="col-md-4 px-1">
-                      <div class="form-group">
-                        <label>Country</label>
-                        <input type="text" name="country" class="form-control" placeholder="Country" value="<?php echo $row['c_country']; ?>">
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label>Postal Code</label>
-                        <input type="number" name="postal_code" class="form-control" value="<?php echo $row['c_postal_code']; ?>">
-                      </div>
-                    </div>
-                  </div>
+                  
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <input type="submit" name="request" value="Update Profile" class="btn btn-primary btn-round">
+                      <input type="submit" name="request" value="Complaint" class="btn btn-primary btn-round">
                       <!-- <button type="submit"  class="btn btn-primary btn-round">Update Profile</button> -->
                     </div>
                   </div>

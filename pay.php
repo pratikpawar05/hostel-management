@@ -71,6 +71,8 @@ $order  = $api->order->create(array(
     data-theme.color="#f77a14"
 ></script>
 <input type="hidden" custom="Hidden Element" name="hidden">
+<input type="text" name="cname" value="<?php echo $Customer_Name;?>" hidden>
+<input type="text" name="cemail" value="<?php echo $Customer_Email;?>" hidden>
 <input type="text" name="cid" value="<?php echo $cid;?>" hidden>
 <input type="text" name="type" value="<?php echo $type;?>" hidden>
 <input type="text" name="no_of_rooms" value="<?php echo $no_of_rooms;?>" hidden>
