@@ -46,20 +46,20 @@
                 </li>
             <?php } ?>
             <?php if ($_SESSION['staff_type_id'] == '1' || $_SESSION['staff_type_id'] == '3') { ?>
-            <li class="">
-                <a href="#">
-                    <i class="nc-icon nc-single-02"></i>
-                    <p>Food Section</p>
-                </a>
-            </li>
+                <li class="">
+                    <a href="./foodsection.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Food Section</p>
+                    </a>
+                </li>
             <?php } ?>
             <?php if ($_SESSION['staff_type_id'] == '1'  || $_SESSION['staff_type_id'] == '2') { ?>
-            <li class="">
-                <a href="#">
-                    <i class="nc-icon nc-single-02"></i>
-                    <p>Room Section</p>
-                </a>
-            </li>
+                <li class="">
+                    <a href="./roomsection.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Room Section</p>
+                    </a>
+                </li>
             <?php } ?>
             <li class="">
                 <form action="" method="post">
