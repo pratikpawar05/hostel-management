@@ -40,16 +40,18 @@ session_start();
                                         <thead>
                                             <tr>
                                                 <th>Meal Name</th>
+                                                <th>Meal Price</th>
                                                 <th>Meal Type</th>
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $sql = "SELECT m.meal_id,m.meal_name,mt.meal_type_name FROM meal m inner join meal_type mt on m.meal_type_id=mt.meal_type_id";
+                                            <?php $sql = "SELECT m.meal_price,m.meal_id,m.meal_name,mt.meal_type_name FROM meal m inner join meal_type mt on m.meal_type_id=mt.meal_type_id";
                                             $result = mysqli_query($conn, $sql);
                                             while ($data = mysqli_fetch_assoc($result)) { ?>
                                                 <tr>
                                                     <td><?php echo $data['meal_name'] ?></td>
+                                                    <td><?php echo $data['meal_price'] ?></td>
                                                     <td><?php echo $data['meal_type_name'] ?></td>
                                                     <td>
                                                         <form action="" method="post">
@@ -57,7 +59,7 @@ session_start();
                                                             <input type="submit" class="btn btn-success" name="request" value="Edit">
                                                             <input type="submit" class="btn btn-danger" name="request" value="Delete">
                                                         </form>
-                                                     </td>
+                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -83,7 +85,6 @@ session_start();
                                         <thead>
                                             <tr>
                                                 <th>Meal Type Name</th>
-                                                <th>Meal Type Price</th>
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
@@ -94,7 +95,6 @@ session_start();
                                             while ($data = mysqli_fetch_assoc($result)) { ?>
                                                 <tr>
                                                     <td><?php echo $data['meal_type_name'] ?></td>
-                                                    <td><?php echo $data['meal_type_price'] ?></td>
                                                     <td>
                                                         <form action="" method="post">
                                                             <input type="hidden" name="email" value="<?php echo $data['meal_type_id'] ?>">
