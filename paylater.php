@@ -1,6 +1,15 @@
 <?php
+//Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+include_once 'connection.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 session_start();
-include 'connection.php';
+$name=$_POST['name'];
+$email=$_POST['email'];
 $cid=$_POST['cid'];
 // echo "cid";
 // echo $cid;
@@ -50,6 +59,84 @@ $pid="p".$bid;
        $type_id=$row1['room_type_id'];
        // echo $type_id;
      }
+function sendMail($email,$name,$bid,$rn,$pid,$total,$checkin,$checkout,$no_of_adult,$no_of_child,$cid,$type)
+{
+  $mail = new PHPMailer();
+  $mail->IsSMTP();
+  $mail->SMTPAuth = true;
+  $mail->SMTPSecure = "tls";
+  $mail->Port = 587;
+  $mail->Host = "smtp.gmail.com";
+  $mail->Username   = "morishostel@gmail.com";
+  $mail->Password   = "MorisHostel01";
+  //Set who the message is to be sent from
+  $mail->From = "morishostel@gmail.com";
+  //From email address and name
+  $mail->FromName = "Moris Hostel";
+  //Set who the message is to be sent to
+  $mail->addAddress($email);
+  //Send HTML or Plain Text email
+  $mail->isHTML(true);
+  //Set the subject line
+  $mail->Subject = "MorisHostel Booking confirmaion Email";
+  $mail->Body = "<p>Thank you $name for booking with MorisHostel.Your booking details are follows:</p><br><table style=\"width:100%;border:1px solid black\">
+    <thead>
+      <tr>
+        <th style=\"border:1px solid black\">field name</th>
+        <th style=\"border:1px solid black\">field value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style=\"border:1px solid black\">Booking Id</td>
+        <td style=\"border:1px solid black\">$bid</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">Room Id</td>
+        <td style=\"border:1px solid black\">$rn</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">Check In Date</td>
+        <td style=\"border:1px solid black\">$checkin</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">Check Out Date</td>
+        <td style=\"border:1px solid black\">$checkout</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">No of child</td>
+        <td style=\"border:1px solid black\">$no_of_child</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">No of adult</td>
+        <td style=\"border:1px solid black\">$no_of_adult</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">Room Type</td>
+        <td style=\"border:1px solid black\">$type</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">Total Payment</td>
+        <td style=\"border:1px solid black\">$total</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">Payment Id</td>
+        <td style=\"border:1px solid black\">$pid</td>
+      </tr>
+      <tr>
+        <td style=\"border:1px solid black\">Payment Status</td>
+        <td style=\"border:1px solid black\">Unpaid</td>
+      </tr>
+    </tbody>
+  </table>";
+  $mail->AltBody = "This is the plain text version of the email content";
+  try {
+    $mail->send();
+   
+  } catch (Exception $e) {
+    echo "<script>alert('Error=> $mail->ErrorInfo')</script>";
+  }
+}
   	 $get_data = mysqli_query($conn,"SELECT * FROM `rooms` where `ROOM_ID` NOT in (SELECT `ROOM_ID` FROM `bookings` WHERE ((B_CHECK_IN_DATE <= '$chi' AND B_CHECK_OUT_DATE <= '$cho') AND (B_CHECK_OUT_DATE >= '$chi' AND B_CHECK_OUT_DATE >= '$cho')) OR (B_CHECK_IN_DATE BETWEEN '$chi' AND '$cho' OR B_CHECK_OUT_DATE BETWEEN '$chi' AND '$cho')) AND ROOM_TYPE_ID='$type_id'");
     // $row=mysqli_fetch_array($get_data);
     //  print_r($get_data);
@@ -70,6 +157,7 @@ $pid="p".$bid;
       		$sql_payinsert=mysqli_query($conn,$payinsert);
       	if($sql_payinsert)
       	{
+          sendMail($email,$name,$bid,$rn,$pid,$total,$checkin,$checkout,$no_of_adult,$no_of_child,$cid,$type);
       
 ?>
 		<!DOCTYPE html>
@@ -141,6 +229,7 @@ $pid="p".$bid;
       </tr>
     </tbody>
   </table>
+  <p>Booking conformation mail sent to your registred Email.</p><br>
   <a href="./" class="btn btn-danger">Back to Home</a>
   </div>
 </div>
