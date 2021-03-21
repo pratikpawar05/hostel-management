@@ -40,7 +40,7 @@ function sendMail($email, $otp)
     //From email address and name
     $mail->FromName = "Moris Hostel";
     //Set who the message is to be sent to
-    $mail->addAddress("icanpratikpawar@gmail.com");
+    $mail->addAddress($email);
     //Send HTML or Plain Text email
     $mail->isHTML(true);
     //Set the subject line

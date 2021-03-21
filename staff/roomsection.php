@@ -73,9 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!isset($_SESSION['staff'])) {
     header("Location: login.php");
 }
-if ($_SESSION['staff_type_id'] != '1') {
+if ($_SESSION['staff_type_id'] == '3') {
     header("Location: admin.php");
 }
+
 ?>
 
 
