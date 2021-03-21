@@ -67,6 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         addRoomType($conn, $_POST['room_type_id']);
     } else if ($_POST['edit_room']) {
         editRoom($conn, $_POST['room_id']);
+    } else if ($_POST['request'] == 'logout') {
+        session_destroy();
+        header("Location: login.php");
     }
 }
 

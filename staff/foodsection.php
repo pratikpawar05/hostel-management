@@ -40,9 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         editMealItem($conn, $_POST['id']);
     } else if ($_POST['meals'] == 'Add') {
         addMealItem($conn);
-    }
-    if ($_POST['meal_type'] == 'Delete') {
+    } else if ($_POST['meal_type'] == 'Delete') {
         deleteMealType($conn, $_POST['id']);
+    }
+    else if ($_POST['request'] == 'logout') {
+        session_destroy();
+        header("Location: login.php");
     }
 }
 
