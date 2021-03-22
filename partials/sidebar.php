@@ -61,6 +61,14 @@
                     </a>
                 </li>
             <?php } ?>
+             <?php if ($_SESSION['staff_type_id'] == '9') { ?>
+                <li class="">
+                    <a href="./viewcomplaints.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>View Complaints</p>
+                    </a>
+                </li>
+            <?php } ?>
             <li class="">
                 <form action="" method="post">
                     <input type="submit" class="form-control" name="request" value="logout">

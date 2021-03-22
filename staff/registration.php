@@ -78,6 +78,7 @@ if (isset($_SESSION['staff'])) {
 									<option value="">Enter Type Of Registration&#42</option>
 									<option value="2">Room Staff</option>
 									<option value="3">Food Staff</option>
+									<option value="9">Complaint Admin</option>
 								</select>
 							</div>
 

@@ -3,15 +3,22 @@ include 'connection.php';
 // error_reporting(E_ALL);
 // ini_set('display_errors', 'On');
 session_start();
-function Complaint($conn)
+if (!isset($_SESSION['email'])) {
+  header("Location: login.php");
+}
+$sql = "SELECT * FROM clients WHERE c_e_mail='" . $_SESSION['email'] . "'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$cid=$row['c_id'];
+function Complaint($conn,$cid)
 {
   $type_of_complaint = $_POST['type_of_complaint'];
-  $complaints = $_POST['complaints'];
+  $complaints = $_POST['complaint'];
   $date = date("Y-m-d");
-  $sql = "UPDATE clients SET `c_type`='$type_of_registration',`c_f_name`='$first_name', `c_l_name`='$last_name',`c_address`='$address',`c_gender`='$gender',`c_mobile`='$mobile',`c_city`='$city',`c_postal_code`='$postal_code',`c_country`='$country' where `c_e_mail`='$email'";
+  $sql = "INSERT INTO `complaints`(`Complaint_Desc`, `Complaint_type`, `C_id`, `status`) VALUES ('$complaints','$type_of_complaint','$cid','pending')";
   $result = mysqli_query($conn, $sql);
   if ($result) {
-    echo "<script>alert('Wow! User Profile Updation Completed.')</script>";
+    echo "<script>alert('Your Complaint sent to Our complaint Manager. We will resolve your complaint as soon as possible.')</script>";
   } else {
     echo "<script>alert('Woops! Something Wrong Went.')</script>";
   }
@@ -25,19 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       break;
     case 'Complaint':
       # code...
-      Complaint($conn);
+      Complaint($conn,$cid);
       break;
     default:
       # code...
       break;
   }
 }
-if (!isset($_SESSION['email'])) {
-  header("Location: login.php");
-}
-$sql = "SELECT * FROM clients WHERE c_e_mail='" . $_SESSION['email'] . "'";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
+
+
 ?>
 
 <!DOCTYPE html>
