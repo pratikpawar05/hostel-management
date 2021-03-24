@@ -72,7 +72,7 @@ if ($_SESSION['staff_type_id'] != '9') {
                                 <h5 class="card-title">Complaints</h5>
                                 <!-- Table component -->
                                 <div class="table-responsive">
-                                    <table class="table table-centered table-nowrap table-hover mb-0" id="futureStaff">
+                                    <table class="table table-centered table-nowrap table-hover mb-0" id="pendingcomplaints">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -118,35 +118,30 @@ if ($_SESSION['staff_type_id'] != '9') {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">All Resolved COmplaints</h5>
+                                <h5 class="card-title">All Resolved Complaints</h5>
                                 <!-- Table component -->
                                 <div class="table-responsive">
-                                    <table id="currentStaff" class="table table-striped table-bordered" style="width:100%">
+                                    <table id="completedcomplaints" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>Joined Date</th>
-                                                <th>Remove Staff</th>
+                                                <th>ID</th>
+                                                <th>Complaint DESC</th>
+                                                <th>Complaint Type</th>
+                                                <th>Complaint Date</th>
+                                                <th>Staff_Id</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $sql = "SELECT * FROM staffs inner join staff_type on staffs.s_type_id=staff_type.s_type_id where staffs.s_type_id='3' and staffs.s_status='1'";
+                                            $sql = "SELECT * FROM `complaints` where status='completed'";
                                             $result = mysqli_query($conn, $sql);
                                             while ($data = mysqli_fetch_assoc($result)) { ?>
                                                 <tr>
-                                                    <td><?php echo $data['s_f_name'] ?></td>
-                                                    <td><?php echo $data['s_l_name'] ?></td>
-                                                    <td><?php echo $data['s_e_mail'] ?></td>
-                                                    <td><?php echo $data['s_created_at'] ?></td>
-                                                    <td>
-                                                        <form action="" method="post">
-                                                            <input type="hidden" name="email" value="<?php echo $data['s_e_mail'] ?>">
-                                                            <input type="submit" class="btn btn-danger" name="request" value="Remove">
-                                                        </form>
-                                                    </td>
+                                                    <th><?php echo $i;?></th>
+                                                    <td><?php echo $data['Complaint_Desc'] ?></td>
+                                                    <td><?php echo $data['Complaint_type'] ?></td>
+                                                    <td><?php echo $data['Complaint_date'] ?></td>
+                                                    <td><?php echo $data['Staff_Id'] ?></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -175,8 +170,8 @@ if ($_SESSION['staff_type_id'] != '9') {
 <script src="../assets/demo/demo.js"></script>
 <script>
     $(document).ready(function() {
-        $('#currentStaff').DataTable();
-        $('#futureStaff').DataTable();
+        $('#pendingcomplaints').DataTable();
+        $('#completedcomplaints').DataTable();
     });
 </script>
 

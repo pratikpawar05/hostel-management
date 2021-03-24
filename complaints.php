@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="./assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="./assets/demo/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 </head>
 
 <body class="">
@@ -221,6 +222,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         </div>
       </div>
+      <div class="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Complaint Status</h5>
+                                <!-- Table component -->
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-nowrap table-hover mb-0" id="complaintstatus">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Complaint DESC</th>
+                                                <th>Complaint Type</th>
+                                                <th>Complaint Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $sql = "SELECT * FROM `complaints` where C_id='$cid'";
+                                            $result = mysqli_query($conn, $sql);
+                                            $i=1;
+                                            while ($data = mysqli_fetch_assoc($result)) { ?>
+                                                <tr>
+                                                    <th><?php echo $i;?></th>
+                                                    <td><?php echo $data['Complaint_Desc'] ?></td>
+                                                    <td><?php echo $data['Complaint_type'] ?></td>
+                                                    <td><?php echo $data['Complaint_date'] ?></td>
+                                                    <td><?php echo $data['status'] ?></td>
+                                                </tr>
+                                            <?php 
+                                            $i++;
+                                        } ?>
+                                        </tbody>
+                                    </table>
+                                    <ul class="pagination pagination-rounded justify-content-end mb-0 mt-2">
+                                    </ul>
+                                </div>
+                                <!-- Table component end -->
+                            </div>
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col -->
+            </div>
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -236,7 +281,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="./assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
   <script src="./assets/demo/demo.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#complaintstatus').DataTable();
+    });
+  </script>
 </body>
 
 </html>
