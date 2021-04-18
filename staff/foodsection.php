@@ -23,6 +23,13 @@ function addMealItem($conn)
     $sql = "INSERT INTO `meal`(`meal_name`,`meal_price`,`meal_type_id`)VALUES('$mealName','$mealPrice','$mealType')";
     $result = mysqli_query($conn, $sql);
     if ($result) echo "<script>alert('Okay! Succesfully Added Meal Item.')</script>";
+    else {
+        $err = mysqli_error_list($conn);
+        if ($err[0]['errno'] == 1062) {
+            echo "<script>alert('Duplicate entry given please correct it!')</script>";
+            return;
+        }
+    }
 }
 function editMealItem($conn, $id)
 {
