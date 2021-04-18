@@ -72,11 +72,11 @@ if (strcmp ($res, "VERIFIED") == 0) {
  
   
   $mail = new PHPMailer;
-  $mail->setFrom('mayur.occinfotech@gmail.com', 'Mayur');
+  $mail->setFrom('nileshseechurn9@gmail.com', 'nilesh');
   $mail->addAddress($payer_email, 'My Friend');
   $mail->Subject  = 'Order Details';
-  $mail->Body     = 'Hello! Thank you for buying my plugin! The files are attached to this email!';
-  $mail->addAttachment('attachment/wpplugin.zip');
+  $mail->Body     = 'Hello! Thank you for booking';
+  // $mail->addAttachment('attachment/wpplugin.zip');
   $mail->send();
 
 

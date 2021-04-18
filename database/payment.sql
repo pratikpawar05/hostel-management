@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2021 at 10:28 AM
+-- Generation Time: Apr 18, 2021 at 03:18 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -43,9 +43,16 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`PAYMENT_ID`, `PAYMENT_TYPE`, `PAYMENT_METHOD`, `PAYMENT_STATUS`, `PAYMENT_AMOUNT`, `MEAL_ORDER_ID`, `B_ID`, `STAFF_ID`) VALUES
-('p102334040321', 'room', 'offline', 'unpaid', '3000', NULL, '102334040321', NULL),
+('p064442060321', 'room', 'offline', 'unpaid', '1500', NULL, '064442060321', '9'),
+('p064703060321', 'room', 'offline', 'paid', '1500', NULL, '064703060321', '9'),
+('p065137060321', 'room', 'offline', 'unpaid', '1500', NULL, '065137060321', '9'),
+('p070520060321', 'room', 'offline', 'unpaid', '1000', NULL, '070520060321', '9'),
+('p070633060321', 'room', 'offline', 'unpaid', '1000', NULL, '070633060321', '9'),
+('p102334040321', 'room', 'offline', 'paid', '3000', NULL, '102334040321', '9'),
 ('pay_GiWgUmGfen8kRR', 'room', 'online', 'paid', '2100', NULL, '102416040321', NULL),
-('pay_GiWjNCaKjT3XOz', 'room', 'online', 'paid', '2100', NULL, '102659040321', NULL);
+('pay_GiWjNCaKjT3XOz', 'room', 'online', 'paid', '2100', NULL, '102659040321', NULL),
+('pay_GjGsVNnKLEXjs2', 'room', 'online', 'paid', '1000', NULL, '073531060321', NULL),
+('pay_GjGvcotbhqNVsm', 'room', 'online', 'paid', '6000', NULL, '073828060321', NULL);
 
 --
 -- Indexes for dumped tables
