@@ -30,7 +30,7 @@ function deleteFacility($conn, $id)
 {
     $sql = "DELETE FROM `facility` WHERE (`facility_id`= '$id')";
     $result = mysqli_query($conn, $sql);
-    echo "<script>alert('Okay! Succesfully Deleted Room Type From System.')</script>";
+    echo "<script>alert('Okay! Succesfully Deleted Facility From System.')</script>";
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['facility_delete']) {
@@ -39,6 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         editFacility($conn, $_POST['facility_id']);
     } else if ($_POST['add_facility']) {
         addFacility($conn);
+    }
+    else if ($_POST['facility_assigned_delete']) {
+        $facility_assigned_id=$_POST['facility-assigned-id'];
+        $sql="DELETE FROM `facility-room` WHERE `id`='$facility_assigned_id'";
+        $result = mysqli_query($conn, $sql);
+        echo "<script>alert('Okay! Succesfully Deleted Facilities Of Room From System.')</script>";
     }
 }
 if (!isset($_SESSION['staff'])) {
@@ -142,26 +148,31 @@ if (!isset($_SESSION['staff'])) {
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Facilities Assigned</h5>
-                                <button type="button" class="btn btn-info room_type_add">Add</button>
+                                <!-- <button type="button" class="btn btn-info room_type_add">Add</button> -->
                                 <!-- Table component -->
                                 <div class="table-responsive">
                                     <table id="currentStaff" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Edit/Delete</th>
+                                                <th>Room No</th>
+                                                <th>Room Level</th>
+                                                <th>Facility Name</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $sql = "SELECT * FROM room_type;";
+                                            $sql = "SELECT fr.id,rooms.room_id,rooms.room_level,facility.facility_name FROM `facility-room` AS fr INNER JOIN facility ON fr.facility_id = facility.facility_id INNER JOIN rooms ON fr.room_id = rooms.room_id";
                                             $result = mysqli_query($conn, $sql);
                                             while ($data = mysqli_fetch_assoc($result)) { ?>
                                                 <tr>
+                                                    <td> <?php echo $data['room_id']; ?> </td>
+                                                    <td> <?php echo $data['room_level']; ?> </td>
+                                                    <td> <?php echo $data['facility_name']; ?> </td>
                                                     <td>
                                                         <form action="" method="post">
-                                                            <input type="hidden" class="room_type_id" name="room_type_id" value="<?php echo $data['room_type_id'] ?>">
-                                                            <input type="submit" class="btn btn-success room_type_edit" name="room_type" value="Edit">
-                                                            <input type="submit" class="btn btn-danger" name="room_type" value="Delete">
+                                                            <input type="hidden" class="facility-assigned-id" name="facility-assigned-id" value="<?php echo $data['id'] ?>">
+                                                            <input type="submit" class="btn btn-danger" name="facility_assigned_delete" value="Delete">
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -177,22 +188,16 @@ if (!isset($_SESSION['staff'])) {
                     </div> <!-- end card-->
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="room-type-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="facility-assigned-modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header bg-light">
-                                <h4 class="modal-title" id="myCenterModalLabel">Facilities Assign</h4>
+                                <h4 class="modal-title" id="myCenterModalLabel">Facilities Assigned</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body p-4">
                                 <form method="post" action="">
-                                    <input type="hidden" class="room_type_id" name="room_type_id">
-                                    <input type="text" class="form-control" id="r_type_name" name="r_type_name" placeholder="Enter Room Type Name" readonly>
-                                    <input type="text" class="form-control" id="room_desc" name="room_desc" placeholder="Enter Room Description">
-                                    <input type="text" class="form-control" id="room_size" name="room_size" placeholder="Enter Room Size">
-                                    <input type="number" class="form-control" id="max_occupancy" name="max_occupancy" placeholder="Enter Max Occupancy">
-                                    <input type="number" class="form-control" id="no_of_beds" name="no_of_beds" placeholder="Enter No Of Beds">
-                                    <input type="number" class="form-control" id="daily_rate" name="daily_rate" placeholder="Enter Daily Rate Of Room">
+                                    <input type="hidden" class="facility_id" name="facility_id">
                                     <div class="text-right">
                                         <button type="submit" class="btn btn-success waves-effect waves-light" name="add" value="Save">Save</button>
                                         <button type="button" class="btn btn-danger waves-effect waves-light" data-dismiss="modal">Cancel</button>
@@ -240,25 +245,11 @@ if (!isset($_SESSION['staff'])) {
         $('#facility-modal').modal('toggle');
     });
 
-    $('.room_type_edit').on('click', (e) => {
+    $('.facility_assigned').on('click', (e) => {
         e.preventDefault();
-        $('#room-type-modal .text-right button').attr('name', 'edit_room_type');
-        let tds = $(e.target).parent().parent().parent().children('td');
-        let id = $(e.target).siblings('.room_type_id')[0];
-        $('#room-type-modal .room_type_id').val($(id).val());
-        $('#room-type-modal #r_type_name').val(tds[0].textContent);
-        $('#room-type-modal #room_desc').val(tds[1].textContent);
-        $('#room-type-modal #room_size').val(tds[2].textContent);
-        $('#room-type-modal #max_occupancy').val(tds[3].textContent);
-        $('#room-type-modal #no_of_beds').val(tds[4].textContent);
-        $('#room-type-modal #daily_rate').val(tds[5].textContent);
-        $('#room-type-modal').modal('toggle');
-    });
-    $('.room_type_add').on('click', (e) => {
-        e.preventDefault();
-        $('#room-type-modal #r_type_name').removeAttr('readonly');
-        $('#room-type-modal .text-right button').attr('name', 'add_room_type');
-        $('#room-type-modal').modal('toggle');
+        // $('#facility-assigned-modal #r_type_name').removeAttr('readonly');
+        // $('#facility-assigned-modal .text-right button').attr('name', 'facility_assigned');
+        $('#facility-assigned-modal').modal('toggle');
     })
 </script>
 
