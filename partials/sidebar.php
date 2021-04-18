@@ -69,6 +69,14 @@
                     </a>
                 </li>
             <?php } ?>
+            <?php if ($_SESSION['staff_type_id'] == '1'  || $_SESSION['staff_type_id'] == '2') { ?>
+                <li class="">
+                    <a href="./facilities.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Facilities</p>
+                    </a>
+                </li>
+            <?php } ?>
             <li class="">
                 <form action="" method="post">
                     <input type="submit" class="form-control" name="request" value="logout">
