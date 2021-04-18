@@ -3,77 +3,34 @@ include 'partials/client-header.php';
 ?>
       <!-- End Navbar -->
       <div class="content">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card card-user">
-              <div class="card-header">
-                <h5 class="card-title">Complaint</h5>
-              </div>
-              <div class="card-body">
-                <form action="" method="POST">
-                  <div class="row">
-
-                    <div class="col-md-8 px-1 ml-auto mr-auto">
-                      <div class="form-group">
-                        <label>Complaint type</label>
-                        <select id="type_of_complaint" name="type_of_complaint" class="form-control custom-select bg-white border-left-0 border-md select-box">
-                          <option value="">Select Complaint Type</option>
-                          <option value="room">Room</option>
-                          <option value="food">Food</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12 pr-1">
-                      <div class="form-group">
-                        <label>Complaint text</label>
-                        <textarea type="textarea" name="complaint" class="form-control" placeholder="complaint text.." rows="500"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="update ml-auto mr-auto">
-                      <input type="submit" name="request" value="Complaint" class="btn btn-primary btn-round">
-                      <!-- <button type="submit"  class="btn btn-primary btn-round">Update Profile</button> -->
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Complaint Status</h5>
+                                <h5 class="card-title">My Bookings</h5>
                                 <!-- Table component -->
                                 <div class="table-responsive">
                                     <table class="table table-centered table-nowrap table-hover mb-0" id="complaintstatus">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Complaint DESC</th>
-                                                <th>Complaint Type</th>
-                                                <th>Complaint Date</th>
-                                                <th>Status</th>
+                                                <th>Booking ID</th>
+                                                <th>Check IN</th>
+                                                <th>Checkout Out</th>
+                                                <th>Details</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $sql = "SELECT * FROM `complaints` where C_id='$cid'";
+                                            <?php $sql = "SELECT `B_ID`, `B_CHECK_IN_DATE`, `B_CHECK_OUT_DATE` FROM `bookings` WHERE C_ID='$cid'";
                                             $result = mysqli_query($conn, $sql);
                                             $i=1;
                                             while ($data = mysqli_fetch_assoc($result)) { ?>
                                                 <tr>
                                                     <th><?php echo $i;?></th>
-                                                    <td><?php echo $data['Complaint_Desc'] ?></td>
-                                                    <td><?php echo $data['Complaint_type'] ?></td>
-                                                    <td><?php echo $data['Complaint_date'] ?></td>
-                                                    <td><?php echo $data['status'] ?></td>
+                                                    <td><?php echo $data['B_ID'] ?></td>
+                                                    <td><?php echo $data['B_CHECK_IN_DATE'] ?></td>
+                                                    <td><?php echo $data['B_CHECK_OUT_DATE'] ?></td>
+                                                    <td><a href="bookingdetails.php?bid=<?php echo $data['B_ID']?>" class="btn btn-primary">View Details</a></td>
                                                 </tr>
                                             <?php 
                                             $i++;

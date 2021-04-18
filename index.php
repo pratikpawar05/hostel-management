@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<form action="check_availibility.php" method="POST">
 							<div class="check-date">
 								<label for="checkin_date">Check In:</label>
-								<input type="date" class="" id="checkin_date" name="checkin">
+								<input type="date" class="" id="checkin_date" name="checkin" min="<?php echo date('Y-m-d'); ?>">
 							</div>
 							<div class="check-date">
 								<label for="checkout_date">Check Out:</label>
-								<input type="date" class="" id="checkout_date" name="checkout">
+								<input type="date" class="" id="checkout_date" name="checkout" min="<?php echo date('Y-m-d'); ?>">
 							</div>
 							<div class="select-option">
 								<label for="types">TYPES:</label>
