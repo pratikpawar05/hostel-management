@@ -13,11 +13,11 @@ function editRoomType($conn, $id)
     $daily_rate = $_POST['daily_rate'];
     $monthly_rate = $daily_rate * 28;
     $no_of_beds = $_POST['no_of_beds'];
-    $sql = "UPDATE `room_type` SET `room_size` = '$room_size',`room_desc` = '$room_desc',`no_of_beds` = '$no_of_beds', `max_occupancy` = '$max_occupancy',`daily_rate` = '$daily_rate',`r_type_name` = '$r_type_name',`monthly_rate` = '$monthly_rate' WHERE `room_type_id` = '$id'";
+    $sql = "UPDATE `room_type` SET `room_size` = '$room_size',`room_desc` = \"$room_desc\" ,`no_of_beds` = '$no_of_beds', `max_occupancy` = '$max_occupancy',`daily_rate` = '$daily_rate',`r_type_name` = '$r_type_name',`monthly_rate` = '$monthly_rate' WHERE `room_type_id` = '$id'";
     $result = mysqli_query($conn, $sql);
     if ($result)
         echo "<script>alert('Okay! Succesfully Edited Room Type From System.')</script>";
-    else print_r(mysqli_error_list($conn));
+    else echo "<script>alert('Internal Error Occured!')</script>";
 }
 function addRoomType($conn)
 {
@@ -56,7 +56,7 @@ function addRoom($conn)
     $result = mysqli_query($conn, $sql);
     if ($result)
         echo "<script>alert('Okay! Succesfully Added Room.')</script>";
-    else print_r(mysqli_error_list($conn));
+    else echo "<script>alert('Internal Error Occured!')</script>";
 }
 
 function editRoom($conn, $id)
@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else if ($_POST['room_type'] == 'Delete') {
         deleteRoomType($conn, $_POST['room_type_id']);
     } else if ($_POST['edit_room_type']) {
+        // print_r($_POST);
         editRoomType($conn, $_POST['room_type_id']);
     } else if ($_POST['add_room_type']) {
         // print_r($_POST);
@@ -326,7 +327,6 @@ if ($_SESSION['staff_type_id'] == '3') {
     });
     $('.room_type_edit').on('click', (e) => {
         e.preventDefault();
-        $('#room-type-modal .text-right button').attr('name', 'edit_room_type');
         let tds = $(e.target).parent().parent().parent().children('td');
         let id = $(e.target).siblings('.room_type_id')[0];
         $('#room-type-modal .room_type_id').val($(id).val());
@@ -336,10 +336,18 @@ if ($_SESSION['staff_type_id'] == '3') {
         $('#room-type-modal #max_occupancy').val(tds[3].textContent);
         $('#room-type-modal #no_of_beds').val(tds[4].textContent);
         $('#room-type-modal #daily_rate').val(tds[5].textContent);
+        $('#room-type-modal .text-right button').attr('name', 'edit_room_type');
         $('#room-type-modal').modal('toggle');
     });
     $('.room_type_add').on('click', (e) => {
         e.preventDefault();
+        $('#room-type-modal .room_type_id').val("");
+        $('#room-type-modal #r_type_name').val("");
+        $('#room-type-modal #room_desc').val("");
+        $('#room-type-modal #room_size').val("");
+        $('#room-type-modal #max_occupancy').val("");
+        $('#room-type-modal #no_of_beds').val("");
+        $('#room-type-modal #daily_rate').val("");
         $('#room-type-modal #r_type_name').removeAttr('readonly');
         $('#room-type-modal .text-right button').attr('name', 'add_room_type');
         $('#room-type-modal').modal('toggle');

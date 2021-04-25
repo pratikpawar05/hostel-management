@@ -3,7 +3,7 @@ include '../connection.php';
 session_start();
 function addFacility($conn)
 {
-    $facility_name = $_POST['facility-name'];
+    $facility_name = trim($_POST['facility-name']);
 
     $sql = "INSERT INTO `facility`(`facility_name`) VALUES ('$facility_name')";
     $result = mysqli_query($conn, $sql);
@@ -19,7 +19,7 @@ function addFacility($conn)
 }
 function editFacility($conn, $id)
 {
-    $facility_name = $_POST['facility-name'];
+    $facility_name = trim($_POST['facility-name']);
     $sql = "UPDATE `facility` SET `facility_name`='$facility_name' WHERE `facility_id` = '$id'";
     $result = mysqli_query($conn, $sql);
     if ($result)
