@@ -2,7 +2,6 @@
 
 include '../connection.php';
 session_start();
-error_reporting(1);
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
@@ -13,15 +12,14 @@ if (isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
         if ($row['s_status'] == '0') {
-            echo "<script>alert('Woops! Account Is Not Yet Activated. Contact Manager')</script>";
-            return;
+            echo "<script>alert('Woops! Account Is Not Yet Activated. Contact Manager');window.location = '/staff/login.php';</script>";
+            
+        } else {
+            $_SESSION['staff'] = $row['s_e_mail'];
+            $_SESSION['staff_type_id'] = $row['s_type_id'];
         }
-        $_SESSION['staff'] = $row['s_e_mail'];
-        $_SESSION['staff_type_id'] = $row['s_type_id'];
-
     } else {
         echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
-        
     }
 }
 if (isset($_SESSION['staff'])) {

@@ -46,13 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = mysqli_query($conn, $sql);
         echo "<script>alert('Okay! Succesfully Deleted Facilities Of Room From System.')</script>";
     }
+    else if ($_POST['request'] == 'logout') {
+        session_destroy();
+        header("Location: login.php");
+    }
 }
 if (!isset($_SESSION['staff'])) {
     header("Location: login.php");
 }
-// if ($_SESSION['staff_type_id'] == '3') {
-//     header("Location: admin.php");
-// }
+if ($_SESSION['staff_type_id'] == '3') {
+    header("Location: admin.php");
+}
 
 ?>
 

@@ -1,7 +1,6 @@
 <?php
 
 include_once '../connection.php';
-error_reporting(0);
 session_start();
 
 if (isset($_POST['submit'])) {
@@ -11,32 +10,36 @@ if (isset($_POST['submit'])) {
 	$email = $_POST['email'];
 	$mobile = $_POST['mobile'];
 	$password = md5($_POST['password']);
-	$dob = $_POST['dob'];
-	// $address = $_POST['address'];
-	// $gender = $_POST['gender'];
-	// $postal_code = $_POST['postal_code'];
-	// $country = $_POST['country'];
-	// $city = $_POST['city'];
-	// $nic = $_POST['nic'];
-	if (empty($type_of_registration)) {
-		echo "<script>alert('Woops! Plz Be Sure To select Type Of Registration.')</script>";
-		return;
-	}
-	$sql = "SELECT * FROM staffs WHERE c_e_mail='$email'";
-	$result = mysqli_query($conn, $sql);
-	if (!$result->num_rows > 0) {
-		$date = date("Y-m-d");
-		$sql = "INSERT INTO staffs (s_type_id,s_f_name, s_l_name,s_e_mail,s_status, s_password,s_created_at) VALUES ('$type_of_registration','$first_name','$last_name', '$email', '0','$password','$date')";
-		$result = mysqli_query($conn, $sql);
-		if ($result) {
-			echo "<script>alert('Wow! Staff Registration Completed.')</script>";
-			header("Location: login.php");
-		} else {
-			echo "<script>alert('Woops! Something Wrong Went.')</script>";
-		}
-	} else {
-		echo "<script>alert('Woops! Email Already Exists.')</script>";
-	}
+	if($_POST['password']!=$_POST['confirm-password']){
+		echo "<script>alert('Woops! Password Doest Match Confirm Password.')</script>";
+	}else{
+        $dob = $_POST['dob'];
+        // $address = $_POST['address'];
+        // $gender = $_POST['gender'];
+        // $postal_code = $_POST['postal_code'];
+        // $country = $_POST['country'];
+        // $city = $_POST['city'];
+        // $nic = $_POST['nic'];
+        if (empty($type_of_registration)) {
+            echo "<script>alert('Woops! Plz Be Sure To select Type Of Registration.')</script>";
+            return;
+        }
+        $sql = "SELECT * FROM staffs WHERE c_e_mail='$email'";
+        $result = mysqli_query($conn, $sql);
+        if (!$result->num_rows > 0) {
+            $date = date("Y-m-d");
+            $sql = "INSERT INTO staffs (s_type_id,s_f_name, s_l_name,s_e_mail,s_status, s_password,s_created_at) VALUES ('$type_of_registration','$first_name','$last_name', '$email', '0','$password','$date')";
+            $result = mysqli_query($conn, $sql);
+            if ($result) {
+                echo "<script>alert('Wow! Staff Registration Completed.')</script>";
+                header("Location: login.php");
+            } else {
+                echo "<script>alert('Woops! Something Wrong Went.')</script>";
+            }
+        } else {
+            echo "<script>alert('Woops! Email Already Exists.')</script>";
+        }
+    }
 }
 if (isset($_SESSION['staff'])) {
 	header("Location: admin.php");
@@ -95,6 +98,9 @@ if (isset($_SESSION['staff'])) {
 							</div>
 							<div class="input-group">
 								<input type="password" placeholder="Password*" name="password" value="" required>
+							</div>
+							<div class="input-group">
+								<input type="password" placeholder="Confirm Password*" name="confirm-password" value="" required>
 							</div>
 							<!-- <div class="input-group">
 								<input type="number" placeholder="Enter NIC" name="nic" value="" required>

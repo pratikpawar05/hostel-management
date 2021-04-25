@@ -13,7 +13,7 @@ function editRoomType($conn, $id)
     $daily_rate = $_POST['daily_rate'];
     $monthly_rate = $daily_rate * 28;
     $no_of_beds = $_POST['no_of_beds'];
-    $sql = "UPDATE `room_type` SET `room_size` = '$room_size',`no_of_beds` = '$no_of_beds', `max_occupancy` = '$max_occupancy',`daily_rate` = '$daily_rate',`r_type_name` = '$r_type_name',`monthly_rate` = '$monthly_rate' WHERE `room_type_id` = '$id'";
+    $sql = "UPDATE `room_type` SET `room_size` = '$room_size',`room_desc` = '$room_desc',`no_of_beds` = '$no_of_beds', `max_occupancy` = '$max_occupancy',`daily_rate` = '$daily_rate',`r_type_name` = '$r_type_name',`monthly_rate` = '$monthly_rate' WHERE `room_type_id` = '$id'";
     $result = mysqli_query($conn, $sql);
     if ($result)
         echo "<script>alert('Okay! Succesfully Edited Room Type From System.')</script>";
@@ -152,12 +152,12 @@ if ($_SESSION['staff_type_id'] == '3') {
                                                 <tr>
                                                    <td><?php echo $data['ROOM_LEVEL'] ?></td>
                                                    <td><?php echo $data['ROOM_STATUS'] ?></td>
-                                                   <td><?php echo $data['r_type_name'] ?></td>
+                                                   <td room_type="<?php echo $data['room_type_id'] ?>"><?php echo $data['r_type_name'] ?></td>
                                                     <td>
                                                         <form action="" method="post">
                                                             <input type="hidden" class="room_id" name="room_id" value="<?php echo $data['ROOM_ID'] ?>">
                                                             <input type="submit" class="btn btn-success room_edit" value="Edit">
-                                                            <input type="submit" class="btn btn-danger" name="room" value="Delete">
+                                                            <!-- <input type="submit" class="btn btn-danger" name="room" value="Delete"> -->
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -185,7 +185,7 @@ if ($_SESSION['staff_type_id'] == '3') {
                                     <input type="hidden" name="room_id" id="room_id">
                                     <input type="hidden" required class="form-control" name="room-level" id="room-level" placeholder="Enter Room Level">
                                     <select name="room-status" class="form-control" id="room-status">
-                                        <option value="Vacant">Vacant</option>
+                                        <option value="Not Available">Not Available</option>
                                         <option value="Available">Available</option>
                                     </select>
                                     <select name="room-type-id" class="form-control" id="room-type">
@@ -312,8 +312,8 @@ if ($_SESSION['staff_type_id'] == '3') {
         $('#room-modal #room-level').attr('type', 'hidden');
         let id = $(e.target).siblings('.room_id')[0];
         $("#room-modal #room_id").val($(id).val());
-        $("#room-modal #room-status").val(tds[2].textContent).attr("selected", "selected");
-        $('#room-modal #room-type').val(tds[3].attributes.room_type.value);
+        $("#room-modal #room-status").val(tds[1].textContent).attr("selected", "selected");
+        $('#room-modal #room-type').val(tds[2].attributes.room_type.value);
         $('#room-modal .text-right button').attr('name', 'edit_room');
         $('#room-modal').modal('toggle');
         // $('#room-modal #room-level').val(tds[0].textContent);
