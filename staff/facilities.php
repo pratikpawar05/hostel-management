@@ -1,6 +1,8 @@
 <?php
 include '../connection.php';
+error_reporting(E_ERROR | E_PARSE);
 session_start();
+
 function addFacility($conn)
 {
     $facility_name = trim($_POST['facility-name']);

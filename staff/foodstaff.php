@@ -6,7 +6,7 @@ session_start();
 function removeStaff($conn)
 {
     $email = $_POST['email'];
-    $sql = "DELETE FROM `hostel_management`.`staffs` WHERE (`s_e_mail`= '$email')";
+    $sql = "DELETE FROM `staffs` WHERE (`s_e_mail`= '$email')";
     $result = mysqli_query($conn, $sql);
     echo "<script>alert('Okay! Succesfully Removed New Staff.')</script>";
 }

@@ -1,7 +1,6 @@
 <?php
 include '../connection.php';
-// error_reporting(E_ALL);
-// ini_set('display_errors', 'On');
+error_reporting(E_ERROR | E_PARSE);
 session_start();
 
 function editRoomType($conn, $id)
@@ -52,7 +51,7 @@ function addRoom($conn)
     $room_level= $_POST['room-level'];
     $room_status = $_POST['room-status'];
     $room_type_id = $_POST['room-type-id'];
-    $sql = "INSERT INTO `hostel_management`.`rooms`(`ROOM_LEVEL`,`ROOM_STATUS`,`ROOM_TYPE_ID`)VALUES('$room_level','$room_status','$room_type_id')";
+    $sql = "INSERT INTO `rooms`(`ROOM_LEVEL`,`ROOM_STATUS`,`ROOM_TYPE_ID`)VALUES('$room_level','$room_status','$room_type_id')";
     $result = mysqli_query($conn, $sql);
     if ($result)
         echo "<script>alert('Okay! Succesfully Added Room.')</script>";
