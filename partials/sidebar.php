@@ -29,6 +29,14 @@
                     <p>Admin Profile</p>
                 </a>
             </li>
+             <?php if ($_SESSION['staff_type_id'] == '1') { ?>
+                <li class="">
+                    <a href="./offlinepayment.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Offline Payment</p>
+                    </a>
+                </li>
+            <?php } ?>
             <?php if ($_SESSION['staff_type_id'] == '1') { ?>
                 <li class="">
                     <a href="./foodstaff.php">
@@ -42,6 +50,14 @@
                     <a href="./roomstaff.php">
                         <i class="nc-icon nc-single-02"></i>
                         <p>Room Staff</p>
+                    </a>
+                </li>
+            <?php } ?>
+            <?php if ($_SESSION['staff_type_id'] == '1') { ?>
+                <li class="">
+                    <a href="./complaintstaff.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Complaint Staff</p>
                     </a>
                 </li>
             <?php } ?>

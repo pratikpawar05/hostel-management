@@ -1,7 +1,10 @@
 <?php
 include 'partials/client-header.php';
 $bid=$_GET['bid'];
-echo $bid;
+//echo $bid;
+$sql="SELECT b.B_CHECK_IN_DATE,b.B_CHECK_OUT_DATE,b.NUM_OF_ADULT,b.NUM_OF_CHILD,b.ROOM_ID,P.PAYMENT_ID,P.PAYMENT_STATUS,p.PAYMENT_AMOUNT FROM `bookings` AS b INNER JOIN `payment` AS p ON b.B_ID=p.B_ID Where b.B_ID='$bid'";
+$result=mysqli_query($conn,$sql);
+$row=mysqli_fetch_array($result);
 ?>
 
       <!-- End Navbar -->
@@ -27,39 +30,35 @@ echo $bid;
       </tr>
       <tr>
         <td>Room Id</td>
-        <td><?php echo $rn;?></td>
+        <td><?php echo $row['ROOM_ID'];?></td>
       </tr>
       <tr>
         <td>Check In Date</td>
-        <td><?php echo $checkin;?></td>
+        <td><?php echo $row['B_CHECK_IN_DATE'];?></td>
       </tr>
       <tr>
         <td>Check Out Date</td>
-        <td><?php echo $checkout;?></td>
+        <td><?php echo $row['B_CHECK_OUT_DATE'];?></td>
       </tr>
       <tr>
         <td>No of child</td>
-        <td><?php echo $no_of_child;?></td>
+        <td><?php echo $row['NUM_OF_CHILD'];?></td>
       </tr>
       <tr>
         <td>No of adult</td>
-        <td><?php echo $no_of_adult;?></td>
-      </tr>
-      <tr>
-        <td>Room Type</td>
-        <td><?php echo $type;?></td>
+        <td><?php echo $row['NUM_OF_ADULT'];?></td>
       </tr>
       <tr>
         <td>Total Payment</td>
-        <td><?php echo $total;?></td>
+        <td><?php echo $row['PAYMENT_AMOUNT'];?></td>
       </tr>
       <tr>
         <td>Payment Id</td>
-        <td><?php echo $pid;?></td>
+        <td><?php echo $row['PAYMENT_ID'];?></td>
       </tr>
       <tr>
         <td>Payment Status</td>
-        <td>Unpaid</td>
+        <td><?php echo $row['PAYMENT_STATUS'];?></td>
       </tr>
     </tbody>
   </table>
