@@ -9,9 +9,12 @@ function updateProfile($conn)
     $first_name = $_POST['f_name'];
     $last_name = $_POST['l_name'];
     $email = $_POST['email'];
-    // $password = md5($_POST['password']);
-    $date = date("Y-m-d");
-    $sql = "UPDATE staffs SET `s_f_name`='$first_name', `s_l_name`='$last_name' where `s_e_mail`='$email'";
+    $password = md5($_POST['password']);
+    if ($_POST['password'] == "secure") {
+        $sql = "UPDATE staffs SET `s_f_name`='$first_name', `s_l_name`='$last_name' where `s_e_mail`='$email'";
+    } else {
+        $sql = "UPDATE staffs SET `s_f_name`='$first_name', `s_l_name`='$last_name', `s_password`='$password' where `s_e_mail`='$email'";
+    }
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo "<script>alert('Wow! User Profile Updation Completed.')</script>";
@@ -160,8 +163,14 @@ if (!isset($_SESSION['staff'])) {
                                             </div>
                                         </div>
                                     </div>
-
-
+                                    <div class="row">
+                                        <div class="col-md-12 pl-1">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="password" class="form-control" placeholder="Enter New Password!" value="secure">
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="update ml-auto mr-auto">
