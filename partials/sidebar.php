@@ -61,6 +61,22 @@
                     </a>
                 </li>
             <?php } ?>
+            <?php if ($_SESSION['staff_type_id'] == '1') { ?>
+                <li class="">
+                    <a href="./cancelbooking.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Cancel Booking</p>
+                    </a>
+                </li>
+            <?php } ?>
+            <?php if ($_SESSION['staff_type_id'] == '1') { ?>
+                <li class="">
+                    <a href="./reportgeneration.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Report Generation</p>
+                    </a>
+                </li>
+            <?php } ?>
             <?php if ($_SESSION['staff_type_id'] == '1' || $_SESSION['staff_type_id'] == '3') { ?>
                 <li class="">
                     <a href="./foodsection.php">
@@ -74,6 +90,14 @@
                     <a href="./roomsection.php">
                         <i class="nc-icon nc-single-02"></i>
                         <p>Room Section</p>
+                    </a>
+                </li>
+            <?php } ?>
+            <?php if ($_SESSION['staff_type_id'] == '1'  || $_SESSION['staff_type_id'] == '2') { ?>
+                <li class="">
+                    <a href="./allbookings.php">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>All Bookings</p>
                     </a>
                 </li>
             <?php } ?>
