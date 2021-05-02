@@ -41,14 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         editFacility($conn, $_POST['facility_id']);
     } else if ($_POST['add_facility']) {
         addFacility($conn);
-    }
-    else if ($_POST['facility_assigned_delete']) {
-        $facility_assigned_id=$_POST['facility-assigned-id'];
-        $sql="DELETE FROM `facility-room` WHERE `id`='$facility_assigned_id'";
+    } else if ($_POST['facility_assigned_delete']) {
+        $facility_assigned_id = $_POST['facility-assigned-id'];
+        $sql = "DELETE FROM `facility-room` WHERE `id`='$facility_assigned_id'";
         $result = mysqli_query($conn, $sql);
         echo "<script>alert('Okay! Succesfully Deleted Facilities Of Room From System.')</script>";
-    }
-    else if ($_POST['request'] == 'logout') {
+    } else if ($_POST['request'] == 'logout') {
         session_destroy();
         header("Location: login.php");
     }
@@ -97,6 +95,7 @@ if ($_SESSION['staff_type_id'] == '3') {
                                         <thead>
                                             <tr>
                                                 <th>Facility Name</th>
+                                                <th>Assign To Rooms</th>
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
@@ -107,12 +106,16 @@ if ($_SESSION['staff_type_id'] == '3') {
                                                 <tr>
                                                     <td><?php echo $data['facility_name'] ?></td>
                                                     <td>
+                                                        <a href="./facilityassign.php?facility_id=<?php echo $data['facility_id'] ?>" class="btn btn-info">Assign</a>
+                                                    </td>
+                                                    <td>
                                                         <form action="" method="post">
                                                             <input type="hidden" class="facility_id" name="facility_id" value="<?php echo $data['facility_id'] ?>">
                                                             <input type="submit" class="btn btn-success facility_edit" value="Edit">
                                                             <input type="submit" class="btn btn-danger" name="facility_delete" value="Delete">
                                                         </form>
                                                     </td>
+
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -160,9 +163,9 @@ if ($_SESSION['staff_type_id'] == '3') {
                                     <table id="currentStaff" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
+                                                <th>Facility Name</th>
                                                 <th>Room No</th>
                                                 <th>Room Level</th>
-                                                <th>Facility Name</th>
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
@@ -172,9 +175,9 @@ if ($_SESSION['staff_type_id'] == '3') {
                                             $result = mysqli_query($conn, $sql);
                                             while ($data = mysqli_fetch_assoc($result)) { ?>
                                                 <tr>
+                                                    <td> <?php echo $data['facility_name']; ?> </td>
                                                     <td> <?php echo $data['room_id']; ?> </td>
                                                     <td> <?php echo $data['room_level']; ?> </td>
-                                                    <td> <?php echo $data['facility_name']; ?> </td>
                                                     <td>
                                                         <form action="" method="post">
                                                             <input type="hidden" class="facility-assigned-id" name="facility-assigned-id" value="<?php echo $data['id'] ?>">
