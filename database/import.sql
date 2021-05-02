@@ -30,7 +30,9 @@ CREATE TABLE `bookings` (
   `NUM_OF_CHILD` int NOT NULL,
   `B_CREATION_DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `C_ID` bigint NOT NULL,
-  `ROOM_ID` int NOT NULL,
+  `ROOM_ID` varchar(500) NOT NULL,
+  `status` varchar(255) DEFAULT 'pending',
+  `cancel_request` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`B_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -41,7 +43,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (120906030321,'2021-03-04 00:00:00','2021-03-08 00:00:00',1,0,'2021-03-03 11:09:06',6,8),(121351030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,0,'2021-03-03 11:13:51',6,4),(121406030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,0,'2021-03-03 11:14:06',6,11),(122327030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,0,'2021-03-03 11:23:27',6,8),(122401030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,0,'2021-03-03 11:24:01',6,9),(122410030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,0,'2021-03-03 11:24:10',6,10),(140224030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,1,'2021-03-03 13:02:24',6,1),(140238030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,1,'2021-03-03 13:02:38',6,2),(140241030321,'2021-03-04 00:00:00','2021-03-07 00:00:00',1,1,'2021-03-03 13:02:41',6,3),(185548030321,'2021-03-10 00:00:00','2021-03-14 00:00:00',2,2,'2021-03-03 17:55:48',6,4),(185559030321,'2021-03-10 00:00:00','2021-03-14 00:00:00',2,2,'2021-03-03 17:55:59',6,11);
+INSERT INTO `bookings` VALUES (65137060321,'2021-03-23 00:00:00','2021-03-26 00:00:00',1,0,'2021-03-06 05:51:37',17,'GO-3','completed','0'),(70520060321,'2021-03-28 00:00:00','2021-03-30 00:00:00',1,0,'2021-03-06 06:05:20',17,'GO-1','completed','0'),(70633060321,'2021-03-28 00:00:00','2021-03-30 00:00:00',1,0,'2021-03-06 06:06:33',17,'GO-2','completed','0'),(73531060321,'2021-03-29 00:00:00','2021-03-31 00:00:00',1,0,'2021-03-06 06:35:31',17,'GO-3','completed','0'),(73828060321,'2021-03-24 00:00:00','2021-03-28 00:00:00',2,1,'2021-03-06 06:38:28',17,'FO-4','completed','0'),(102334040321,'2021-03-05 00:00:00','2021-03-08 00:00:00',1,0,'2021-03-04 09:23:34',17,'GO-5','completed','0'),(102416040321,'2021-03-05 00:00:00','2021-03-08 00:00:00',2,1,'2021-03-04 09:24:16',17,'FO-1','completed','0'),(112004020521,'2021-05-04 00:00:00','2021-05-09 00:00:00',1,0,'2021-05-02 09:20:04',17,'GO-1','pending','0'),(112356020521,'2021-05-11 00:00:00','2021-05-15 00:00:00',1,0,'2021-05-02 09:23:56',17,'GO-1','pending','0');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +83,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (4,'International','Justina Kent','Amela Bass','Eos error id dolore  ','Ut voluptatem sequi ','Autem nesciunt null',NULL,'qixagaloho@mailinator.com','2020-07-13','Transgender','Sunt unde eaque at ','Et aute est asperna','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-17 18:30:00'),(5,'International','Griffith Moss','Alexander Compton','Ut quia temporibus o ','Rem dicta labore rem','Officia consequatur',NULL,'qiqapi@mailinator.com','1994-09-21','Male','Et labore sit sint ','Doloremque obcaecati','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-17 18:30:00'),(6,'International','Shelly Koch','Brenda Malone','Modi velit et unde c ','Laboriosam est quia','Nam velit laudantium',NULL,'admin@admin.com','1975-10-03','Male','Ut tenetur error asp','Voluptates nihil ips','5f4dcc3b5aa765d61d8327deb882cf99','IHU25','1','2021-02-17 18:30:00'),(7,'Student','Malcolm','Gloria','Eius quis modi quae  ','123','Possimus magna quod',NULL,'sufumimi@mailinator.com','1983-11-01','Female','Aperiam quia neque q','Rem dolorem ad offic','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-17 18:30:00'),(8,'Student','Steven Sweet','Carolyn Clark','Deserunt ea aut quae ','Aliquid quia soluta ','Fugiat qui quia rei','99','pubitexome@mailinator.com','2004-06-17','Male','Laborum Hic dolor e','Blanditiis delectus','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-18 18:30:00'),(9,'','pratik','pawar','\"VISHWAREKHA\" Plot No. 7, Swami Muktanand Nagar(Board No.4), Bhadgaon Road ','424101','India','11111111111111','icanpratikpawar@gmail.com','2021-02-26','Male','08830081411','Chalisgaon','dc1fe64bac63ad21054534afce389e65',NULL,'0','2021-02-20 18:30:00'),(10,'Student','Jakeem','May','In perspiciatis et  ','17','Et do sit pariatur ','Velquinostru','cukiwip@mailinator.com','1985-02-09','Male','8830081411','Nobis vel exercitati','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-21 18:30:00'),(11,'','Urielle','Chantale','Architecto alias omn ','6','Consequatur porro c','Ealapaun','sosuvuhudo@mailinator.com','2014-03-21','Male','77','Quo aspernatur archi','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-21 18:30:00'),(12,'','Unity','Berk','Rerum ducimus delec ','100','Aut ullam blanditiis','Voluptatibu','pezerezu@mailinator.com','2007-04-24','Male','13','Consequatur animi ','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-21 18:30:00'),(13,'','Solomon','Bird','Ut adipisci ducimus ','87','Esse nulla do id sin','Illumfugiat','xomuto@mailinator.com','2018-08-17','Male','82','Animi eos nemo est ','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-21 18:30:00'),(14,'International','Logan','Quemby','Ex aliquam ea adipis','48','Consequat Odio Nam ','Adipisci','ritep@mailinator.com','1980-11-01','Female','90','Recusandae Ea sapie','5f4dcc3b5aa765d61d8327deb882cf99','3K5w9','1','2021-03-02 18:30:00'),(15,'International','Travis','Ocean','Sunt irure non lauda','9','Esse saepe voluptati','Ametsss','qoxit@mailinator.com','2009-07-02','Female','51','Eum unde eu id qui u','5f4dcc3b5aa765d61d8327deb882cf99','nIxUW','1','2021-03-02 18:30:00'),(16,'Student','Rogan','Quamar','Dignissimos consequa ','88','Eligendi voluptate c','Ducimu','riqodapu@mailinator.com','2017-09-22','Female','96','Non odit sint omnis','5f4dcc3b5aa765d61d8327deb882cf99','lFBkX','1','2021-03-02 18:30:00'),(17,'International','Edward','Ryder','Dolorum libero in et ','73','Veritatis excepturi ','Aquo','togivoxeb@mailinator.com','2017-09-24','Female','30','Id laboris qui modi ','5f4dcc3b5aa765d61d8327deb882cf99','dODdJ','0','2021-03-02 18:30:00');
+INSERT INTO `clients` VALUES (4,'International','Justina Kent','Amela Bass','Eos error id dolore  ','Ut voluptatem sequi ','Autem nesciunt null',NULL,'qixagaloho@mailinator.com','2020-07-13','Transgender','Sunt unde eaque at ','Et aute est asperna','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-17 18:30:00'),(5,'International','Griffith Moss','Alexander Compton','Ut quia temporibus o ','Rem dicta labore rem','Officia consequatur',NULL,'qiqapi@mailinator.com','1994-09-21','Male','Et labore sit sint ','Doloremque obcaecati','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-17 18:30:00'),(6,'International','Shelly Koch','Brenda Malone','Modi velit et unde c ','Laboriosam est quia','Nam velit laudantium',NULL,'admin@admin.com','1975-10-03','Male','Ut tenetur error asp','Voluptates nihil ips','5f4dcc3b5aa765d61d8327deb882cf99','IHU25','1','2021-02-17 18:30:00'),(7,'Student','Malcolm','Gloria','Eius quis modi quae  ','123','Possimus magna quod',NULL,'sufumimi@mailinator.com','1983-11-01','Female','Aperiam quia neque q','Rem dolorem ad offic','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-17 18:30:00'),(8,'Student','Steven Sweet','Carolyn Clark','Deserunt ea aut quae ','Aliquid quia soluta ','Fugiat qui quia rei','99','pubitexome@mailinator.com','2004-06-17','Male','Laborum Hic dolor e','Blanditiis delectus','5f4dcc3b5aa765d61d8327deb882cf99',NULL,'0','2021-02-18 18:30:00'),(14,'International','Logan','Quemby','Ex aliquam ea adipis','48','Consequat Odio Nam ','Adipisci','ritep@mailinator.com','1980-11-01','Female','90','Recusandae Ea sapie','5f4dcc3b5aa765d61d8327deb882cf99','3K5w9','1','2021-03-02 18:30:00'),(15,'International','Travis','Ocean','Sunt irure non lauda','9','Esse saepe voluptati','Ametsss','qoxit@mailinator.com','2009-07-02','Female','51','Eum unde eu id qui u','5f4dcc3b5aa765d61d8327deb882cf99','nIxUW','1','2021-03-02 18:30:00'),(16,'Student','Rogan','Quamar','Dignissimos consequa ','88','Eligendi voluptate c','Ducimu','riqodapu@mailinator.com','2017-09-22','Female','96','Non odit sint omnis','5f4dcc3b5aa765d61d8327deb882cf99','lFBkX','1','2021-03-02 18:30:00'),(17,'International','Edward','Ryder','Dolorum libero in et ','73','Veritatis excepturi ','Aquo','togivoxeb@mailinator.com','2017-09-24','Female','30','Id laboris qui modi ','5f4dcc3b5aa765d61d8327deb882cf99','dODdJ','0','2021-03-02 18:30:00');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +103,7 @@ CREATE TABLE `complaints` (
   `Staff_Id` int DEFAULT NULL,
   `status` varchar(255) NOT NULL,
   PRIMARY KEY (`Complaint_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +112,7 @@ CREATE TABLE `complaints` (
 
 LOCK TABLES `complaints` WRITE;
 /*!40000 ALTER TABLE `complaints` DISABLE KEYS */;
-INSERT INTO `complaints` VALUES (7,'food is not good','food','2021-03-24 05:38:33',17,19,'completed'),(8,'Room Quality is too bad.','room','2021-03-24 05:52:47',17,19,'completed');
+INSERT INTO `complaints` VALUES (7,'food is not good','food','2021-03-24 05:38:33',17,19,'completed'),(8,'Room Quality is too bad.','room','2021-03-24 05:52:47',17,19,'completed'),(9,'simple ','room','2021-05-02 13:35:08',6,NULL,'pending');
 /*!40000 ALTER TABLE `complaints` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +137,7 @@ CREATE TABLE `facility` (
 
 LOCK TABLES `facility` WRITE;
 /*!40000 ALTER TABLE `facility` DISABLE KEYS */;
-INSERT INTO `facility` VALUES (17,'c'),(18,'ccc'),(12,'chairs'),(6,'cubboard'),(8,'cubboard large'),(13,'dinning table'),(2,'table');
+INSERT INTO `facility` VALUES (17,'chai'),(12,'chairs'),(6,'cubboard'),(3,'dinning table'),(2,'table');
 /*!40000 ALTER TABLE `facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,8 +152,12 @@ CREATE TABLE `facility-room` (
   `id` int NOT NULL AUTO_INCREMENT,
   `facility_id` int NOT NULL,
   `room_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  KEY `fk_facility-room_1_idx` (`facility_id`),
+  KEY `fk_facility-room_2_idx` (`room_id`),
+  CONSTRAINT `fk_facility-room_1` FOREIGN KEY (`facility_id`) REFERENCES `facility` (`facility_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_facility-room_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`ROOM_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +166,7 @@ CREATE TABLE `facility-room` (
 
 LOCK TABLES `facility-room` WRITE;
 /*!40000 ALTER TABLE `facility-room` DISABLE KEYS */;
-INSERT INTO `facility-room` VALUES (5,3,2),(7,2,1);
+INSERT INTO `facility-room` VALUES (5,3,2),(7,12,1),(8,12,2),(9,2,2),(10,2,3),(11,2,4),(13,2,1),(14,2,5),(15,2,6),(16,2,7),(17,6,1),(18,6,2),(19,6,3),(20,6,20),(24,2,8),(28,12,3),(29,12,5),(30,12,20),(31,12,21),(32,12,23);
 /*!40000 ALTER TABLE `facility-room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,7 +249,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES ('p102334040321','room','offline','unpaid','3000',NULL,'102334040321',NULL),('pay_GiWgUmGfen8kRR','room','online','paid','2100',NULL,'102416040321',NULL),('pay_GiWjNCaKjT3XOz','room','online','paid','2100',NULL,'102659040321',NULL);
+INSERT INTO `payment` VALUES ('p102334040321','room','offline','paid','3000',NULL,'102334040321','9'),('pay_GiWgUmGfen8kRR','room','online','paid','2100',NULL,'102416040321',NULL),('pay_GiWjNCaKjT3XOz','room','online','paid','2100',NULL,'102659040321',NULL);
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-27 17:40:00
+-- Dump completed on 2021-05-02 20:39:42
