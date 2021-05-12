@@ -9,12 +9,9 @@ function updateProfile($conn)
     $first_name = $_POST['f_name'];
     $last_name = $_POST['l_name'];
     $email = $_POST['email'];
-    $password = md5($_POST['password']);
-    if ($_POST['password'] == "secure") {
-        $sql = "UPDATE staffs SET `s_f_name`='$first_name', `s_l_name`='$last_name' where `s_e_mail`='$email'";
-    } else {
-        $sql = "UPDATE staffs SET `s_f_name`='$first_name', `s_l_name`='$last_name', `s_password`='$password' where `s_e_mail`='$email'";
-    }
+
+    $sql = "UPDATE staffs SET `s_f_name`='$first_name', `s_l_name`='$last_name' where `s_e_mail`='$email'";
+
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo "<script>alert('Wow! User Profile Updation Completed.')</script>";
@@ -22,7 +19,26 @@ function updateProfile($conn)
         echo "<script>alert('Woops! Something Wrong Went.')</script>";
     }
 }
-
+function changePassword($conn)
+{
+    if ($_POST['password'] != $_POST['confirmpassword']) {
+        echo "<script>alert('Password & Confirm Password Didnt Match.');</script>";
+        echo "<script>window.location.href ='admin.php'</script>";
+    }
+    // if(strlen($_POST['password'])<8){
+    //     echo "<script>alert('Password Length is too small. Minimum 5 characters');</script>";
+    //     echo "<script>window.location.href ='admin.php'</script>";
+    // }
+    $email = $_SESSION['staff'];
+    $password = md5($_POST['password']);
+    $sql = "UPDATE staffs SET `s_password`='$password' where `s_e_mail`='$email'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo "<script>alert('Wow! Password Changed.')</script>";
+    } else {
+        echo "<script>alert('Woops! Something Wrong Went.')</script>";
+    }
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($_POST['request']) {
         case 'logout':
@@ -32,8 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'Update Profile':
             updateProfile($conn);
             break;
+        case 'Change Password':
+            changePassword($conn);
+            break;
         default:
-            # code...
             break;
     }
 }
@@ -57,12 +75,20 @@ if (!isset($_SESSION['staff'])) {
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet" />
+    <style>
+        form i {
+            cursor: pointer;
+            margin-left: -30px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body class="">
@@ -163,18 +189,39 @@ if (!isset($_SESSION['staff'])) {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="update ml-auto mr-auto">
+                                            <input type="submit" name="request" value="Update Profile" class="btn btn-primary btn-round">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card card-user">
+                            <div class="card-header">
+                                <h5 class="card-title">Change Password</h5>
+                            </div>
+                            <div class="card-body">
+                                <form action="" method="POST">
                                     <div class="row">
                                         <div class="col-md-12 pl-1">
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input type="password" name="password" class="form-control" placeholder="Enter New Password!" value="secure">
+                                            <div class="form-group" style="display: flex;">
+                                                <input type="password" id="password" name="password" class="form-control togglePassword" placeholder="Enter New Password!">
+                                                <i class="far fa-eye" id="togglePassword"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 pl-1">
+                                            <div class="form-group" style="display: flex;">
+                                                <input type="password" id="confirmPassword" name="confirmpassword" class="form-control" placeholder="Confirm New Password!">
+                                                <i class="far fa-eye" id="toggleConfirmPassword"></i>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="update ml-auto mr-auto">
-                                            <input type="submit" name="request" value="Update Profile" class="btn btn-primary btn-round">
+                                            <input type="submit" name="request" value="Change Password" class="btn btn-primary btn-round">
                                         </div>
                                     </div>
                                 </form>
@@ -193,6 +240,28 @@ if (!isset($_SESSION['staff'])) {
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
     <script src="../assets/demo/demo.js"></script>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+
+        const password = document.querySelector('#password');
+        togglePassword.addEventListener('click', function(e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        const confirmPassword = document.querySelector('#confirmPassword');
+        toggleConfirmPassword.addEventListener('click', function(e) {
+            // toggle the type attribute
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            // toggle the eye slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </body>
 
 </html>

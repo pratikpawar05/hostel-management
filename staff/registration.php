@@ -8,18 +8,10 @@ if (isset($_POST['submit'])) {
 	$first_name = $_POST['f_name'];
 	$last_name = $_POST['l_name'];
 	$email = $_POST['email'];
-	$mobile = $_POST['mobile'];
 	$password = md5($_POST['password']);
 	if($_POST['password']!=$_POST['confirm-password']){
 		echo "<script>alert('Woops! Password Doest Match Confirm Password.')</script>";
 	}else{
-        $dob = $_POST['dob'];
-        // $address = $_POST['address'];
-        // $gender = $_POST['gender'];
-        // $postal_code = $_POST['postal_code'];
-        // $country = $_POST['country'];
-        // $city = $_POST['city'];
-        // $nic = $_POST['nic'];
         if (empty($type_of_registration)) {
             echo "<script>alert('Woops! Plz Be Sure To select Type Of Registration.')</script>";
             return;
@@ -34,6 +26,7 @@ if (isset($_POST['submit'])) {
                 echo "<script>alert('Wow! Staff Registration Completed.')</script>";
                 header("Location: login.php");
             } else {
+				print_r(mysqli_error($conn));
                 echo "<script>alert('Woops! Something Wrong Went.')</script>";
             }
         } else {
