@@ -51,11 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							</div>
 							<div class="select-option">
 								<label for="no_of_child">No Of Child:</label>
-								<input type="number" name="no_of_child" id="no_of_child" class="form-control">
+								<input type="number" name="no_of_child" id="no_of_child" class="form-control" min="0">
 							</div>
 							<div class="select-option">
 								<label for="no_of_adults">No Of Adults:</label>
-								<input type="number" name="no_of_adults" id="no_of_adults" class="form-control">
+								<input type="number" name="no_of_adults" id="no_of_adults" class="form-control" min="0">
 							</div>
 							<button type="submit">Check Availability</button>
 						</form>

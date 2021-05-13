@@ -23,6 +23,25 @@ function Complaint($conn,$cid)
     echo "<script>alert('Woops! Something Wrong Went.')</script>";
   }
 }
+function Changepass($conn,$cid)
+{
+  $npass = $_POST['newpass'];
+  $cpass = $_POST['confirmpass'];
+  if($npass==$cpass)
+  {
+  $pass=md5($npass);
+  $sql = "UPDATE `clients` SET `c_password`='$pass' WHERE c_id='$cid'";
+  $result = mysqli_query($conn, $sql);
+  if ($result) {
+    echo "<script>alert('Your Password Changed successfully.')</script>";
+  } else {
+    echo "<script>alert('Woops! Something Wrong Went.')</script>";
+  }
+}
+else{
+  echo "<script>alert('New Password and Confirm Password must be same!')</script>";
+}
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   switch ($_POST['request']) {
     case 'logout':
@@ -33,6 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     case 'Complaint':
       # code...
       Complaint($conn,$cid);
+      break;
+    case 'change':
+      # code...
+      Changepass($conn,$cid);
       break;
     default:
       # code...
@@ -110,6 +133,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="./mybookings.php">
               <i class="nc-icon nc-single-02"></i>
               <p>My Bookings</p>
+            </a>
+          </li>
+          <li class="">
+            <a href="./changepass.php">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Change Password</p>
             </a>
           </li>
           <li class="">
